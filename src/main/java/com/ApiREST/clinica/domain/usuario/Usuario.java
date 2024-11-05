@@ -1,6 +1,7 @@
 package com.ApiREST.clinica.domain.usuario;
 
 
+import com.ApiREST.clinica.domain.direccion.Direccion;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -25,8 +26,14 @@ public class Usuario implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String username;
-
     private String password;
+    String nombre;
+    String correo;
+    String documento;
+    String telefono;
+    @Embedded
+    Direccion direccion;
+    Boolean activo = true;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -64,5 +71,30 @@ public class Usuario implements UserDetails {
         return true;
     }
 
+    public Usuario guardarUsuario(DatosAgregarUsuario usuario) {
+
+        this.nombre = usuario.nombre();
+        this.correo = usuario.correo();
+        this.documento = usuario.documento();
+        this.telefono = usuario.telefono();
+        this.direccion = new Direccion(usuario.direccion().ciudad, usuario.direccion().calle, usuario.direccion().numero);
+        this.activo = activo;
+        return this;
+    }
+
+    public Usuario actualizarUsuario(DatosActualizarUsuario usuario) {
+        this.nombre = usuario.nombre();
+        this.correo = usuario.correo();
+        this.telefono = usuario.telefono();
+        this.documento = usuario.documento();
+        this.direccion = new Direccion(usuario.direccion().calle, usuario.direccion().ciudad,
+                usuario.direccion().numero);
+        return this;
+    }
+
+    public void eliminarUsuario(Long id) {
+        this.activo = false;
+
+    }
 
 }

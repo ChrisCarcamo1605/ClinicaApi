@@ -1,0 +1,1 @@
+alter table veterinarios add column telefono varchar(6) not null unique

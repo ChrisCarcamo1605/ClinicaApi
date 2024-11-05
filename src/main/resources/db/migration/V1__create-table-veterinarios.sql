@@ -1,5 +1,5 @@
 use mi_clinica;
-create table medicos(
+create table veterinarios(
     id bigint  not null auto_increment primary key ,
     nombre varchar(250) not null unique,
     correo varchar(250) not null unique,

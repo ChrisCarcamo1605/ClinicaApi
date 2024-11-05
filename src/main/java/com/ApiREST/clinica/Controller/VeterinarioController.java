@@ -2,7 +2,7 @@ package com.ApiREST.clinica.Controller;
 
 
 import com.ApiREST.clinica.domain.direccion.Direccion;
-import com.ApiREST.clinica.domain.medico.*;
+import com.ApiREST.clinica.domain.veterinario.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,19 +17,19 @@ import java.net.URI;
 
 
 @RestController
-@RequestMapping("/medico")
-public class MedicoController {
+@RequestMapping("/veterinario")
+public class VeterinarioController {
 
     @Autowired
-    MedicoRepository medicoRepository;
+    VeterinarioRepository medicoRepository;
     
   @PostMapping
-  public ResponseEntity<DatosRespuestaMedico> RegistrarPaciente(@Valid @RequestBody DatosRegistromedico dtOmedico,
-                                                                UriComponentsBuilder uriBuilder){
+  public ResponseEntity<DatosRespuestaVeterinario> RegistrarPaciente(@Valid @RequestBody DatosRegistroVeterinario dtOmedico,
+                                                                     UriComponentsBuilder uriBuilder){
 
-      Medico medico = medicoRepository.save(new Medico().guardarMedico(dtOmedico));
+      Veterinario medico = medicoRepository.save(new Veterinario().guardarVeterinario(dtOmedico));
 
-      DatosRespuestaMedico datosRespuestaMedico = new DatosRespuestaMedico(medico.getId(),medico.getNombre(),medico.getCorreo()
+      DatosRespuestaVeterinario datosRespuestaMedico = new DatosRespuestaVeterinario(medico.getId(),medico.getNombre(),medico.getCorreo()
               ,medico.getTelefono(), medico.getEspecialidad(),
               new Direccion(medico.getDireccion().calle,medico.getDireccion().ciudad
                       ,medico.getDireccion().numero));
@@ -40,17 +40,17 @@ public class MedicoController {
   }
 
   @GetMapping
-        public ResponseEntity<Page<DatosListadoMedico>> ListarMedico(@PageableDefault(size = 3) Pageable pageable){
+        public ResponseEntity<Page<DatosListadoVeterinario>> ListarMedico(@PageableDefault(size = 3) Pageable pageable){
 
-      return ResponseEntity.ok(medicoRepository.findByActivoTrue(pageable).map(DatosListadoMedico::new));
+      return ResponseEntity.ok(medicoRepository.findByActivoTrue(pageable).map(DatosListadoVeterinario::new));
   }
 
   @Transactional
   @PutMapping
-    public ResponseEntity<DatosRespuestaMedico> ActualizarMedico(@Valid @RequestBody DatosActualizarMedico dtOmedico){
-        Medico medico = medicoRepository.getReferenceById(dtOmedico.id());
-        medico.actualizarMedico(dtOmedico);
-        return ResponseEntity.ok(new DatosRespuestaMedico(medico.getId(),medico.getNombre(),medico.getCorreo()
+    public ResponseEntity<DatosRespuestaVeterinario> ActualizarMedico(@Valid @RequestBody DatosActualizarVeterinario dtOmedico){
+        Veterinario medico = medicoRepository.getReferenceById(dtOmedico.id());
+        medico.actualizarVeterinario(dtOmedico);
+        return ResponseEntity.ok(new DatosRespuestaVeterinario(medico.getId(),medico.getNombre(),medico.getCorreo()
                 ,medico.getTelefono(), medico.getEspecialidad(),
                 new Direccion(medico.getDireccion().calle,medico.getDireccion().ciudad
                         ,medico.getDireccion().numero)));
@@ -59,8 +59,8 @@ public class MedicoController {
   @DeleteMapping("/{id}")
   @Transactional
     public ResponseEntity eliminarMedico(@PathVariable Long id){
-      Medico medico = medicoRepository.getReferenceById(id);
-      medico.eliminarMedico();
+      Veterinario medico = medicoRepository.getReferenceById(id);
+      medico.eliminarVeterinario();
       return ResponseEntity.noContent().build();
   }
 }
