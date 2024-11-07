@@ -1,8 +1,8 @@
-package com.ApiREST.clinica.domain.medico;
+package com.ApiREST.clinica.domain.veterinario;
 
 import jakarta.persistence.Id;
 
-public record DatosActualizarMedico(
+public record DatosActualizarVeterinario(
                                     @Id
                                     Long id,
 

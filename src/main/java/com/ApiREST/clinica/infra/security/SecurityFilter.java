@@ -24,6 +24,8 @@ public class SecurityFilter extends OncePerRequestFilter {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+
+    //Nuestra primera capa de seguridad, el que define si el usuario tiene un token y si este es valido para realizar request
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 

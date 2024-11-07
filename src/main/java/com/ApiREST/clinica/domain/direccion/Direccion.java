@@ -12,12 +12,12 @@ import lombok.NoArgsConstructor;
 public class Direccion {
     public String calle;
     public String ciudad;
-    public String numero;
+    public String colonia;
 
     public Direccion(@Valid DTODireccion dtoDireccion){
         this.calle = dtoDireccion.calle();
         this.ciudad = dtoDireccion.ciudad();
-        this.numero = dtoDireccion.numero();
+        this.colonia = dtoDireccion.colonia();
 
     }
 

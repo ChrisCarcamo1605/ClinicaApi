@@ -8,5 +8,5 @@ public record DTODireccion(
                 @NotNull
                 String ciudad,
                 @NotNull
-                String numero) {
+                String colonia) {
 }

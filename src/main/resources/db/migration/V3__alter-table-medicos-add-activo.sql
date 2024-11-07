@@ -1,1 +1,0 @@
-alter table medicos add column  activo int ;
