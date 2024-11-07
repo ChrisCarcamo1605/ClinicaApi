@@ -30,6 +30,7 @@ public class TokenService extends JWT {
     private String secret;
 
 
+    //Crea tokens con el username y password con una fecha/hora de caducacion
     public String crearToken(Usuario usuario) {
 
 
@@ -37,7 +38,7 @@ public class TokenService extends JWT {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             return JWT.create()
                     .withIssuer("mi_clinica")
-                    .withSubject(usuario.getUsername())
+                    .withSubject(usuario.getCorreo())
                     .withClaim("ID:", usuario.getId())
                     .withExpiresAt(generarFechaExpiracion())
                     .sign(algorithm);
@@ -49,6 +50,8 @@ public class TokenService extends JWT {
 
     }
 
+
+    //verifica el token asegurandose q la firma, caducidad y formato es correcto
     public String verificarToken(String token) {
         if(token == null) {
             throw new RuntimeException("Token nulo");

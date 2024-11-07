@@ -7,7 +7,7 @@ public record DatosListadoVeterinario(Long id, String nombre, String correo, Str
     public DatosListadoVeterinario(Veterinario medico) {
         this(medico.getId(),medico.getNombre(),medico.getCorreo(),medico.getTelefono(),medico.getEspecialidad(),
                 new Direccion(medico.getDireccion().calle,medico.getDireccion().ciudad,
-                        medico.getDireccion().numero));
+                        medico.getDireccion().colonia));
 
     }
 

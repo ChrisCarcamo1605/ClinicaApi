@@ -9,15 +9,16 @@ public record DatosAgregarUsuario(
         @NotBlank
         String nombre,
         @NotBlank
-
         @Email
         String correo,
+        @NotBlank
+        String password,
 
         @NotBlank
         String telefono,
         @NotBlank
-        String documento,
+        String dui,
         @NotNull
         Direccion direccion
-      ) {
+) {
 }

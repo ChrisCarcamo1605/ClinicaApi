@@ -9,7 +9,7 @@ public record DatosActualizarUsuario(
         String nombre,
         String correo,
         String telefono,
-        String documento,
+        String dui,
         Direccion direccion) {
 
 

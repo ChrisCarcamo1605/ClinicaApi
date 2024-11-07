@@ -2,7 +2,6 @@ package com.ApiREST.clinica.Controller;
 
 import com.ApiREST.clinica.domain.direccion.Direccion;
 import com.ApiREST.clinica.domain.usuario.*;
-import com.ApiREST.clinica.infra.security.DatosJWTtoken;
 import com.ApiREST.clinica.infra.security.TokenService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -12,8 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -40,9 +37,9 @@ public class UsuarioController {
         Usuario usuario = usuariosRepository.save(new Usuario().guardarUsuario(datosAgregarPaciente));
 
         DatosRespuestaUsuario datosRespuestaPaciente = new DatosRespuestaUsuario(datosAgregarPaciente.nombre()
-                , datosAgregarPaciente.correo(), datosAgregarPaciente.telefono(), datosAgregarPaciente.documento(),
+                , datosAgregarPaciente.correo(), datosAgregarPaciente.telefono(), datosAgregarPaciente.dui(),
                 new Direccion(datosAgregarPaciente.direccion().calle,
-                        datosAgregarPaciente.direccion().ciudad, datosAgregarPaciente.direccion().numero));
+                        datosAgregarPaciente.direccion().ciudad, datosAgregarPaciente.direccion().colonia));
 
         URI url = uriComponentsBuilder.path("/paciente").build().toUri();
         return ResponseEntity.created(url).body(datosRespuestaPaciente);
@@ -61,8 +58,8 @@ public class UsuarioController {
 
         return ResponseEntity.ok(new DatosRespuestaUsuario(dto.nombre(),
                 dto.correo(), dto.telefono(),
-                dto.documento(), new Direccion(dto.direccion().calle,
-                dto.direccion().ciudad, dto.direccion().numero)));
+                dto.dui(), new Direccion(dto.direccion().calle,
+                dto.direccion().ciudad, dto.direccion().colonia)));
 
     }
 

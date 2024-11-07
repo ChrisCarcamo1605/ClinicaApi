@@ -6,9 +6,9 @@ public record DatosListadoUsuario(Long id, String nombre, String correo, String 
                                   String documento, Direccion direccion) {
 
     public DatosListadoUsuario(Usuario usuario) {
-        this(usuario.getId(), usuario.getNombre(), usuario.getCorreo(), usuario.getTelefono(), usuario.getDocumento(),
+        this(usuario.getId(), usuario.getNombre(), usuario.getCorreo(), usuario.getTelefono(), usuario.getDui(),
                 new Direccion(usuario.getDireccion().calle,
-                        usuario.getDireccion().ciudad, usuario.getDireccion().numero));
+                        usuario.getDireccion().ciudad, usuario.getDireccion().colonia));
     }
 
 

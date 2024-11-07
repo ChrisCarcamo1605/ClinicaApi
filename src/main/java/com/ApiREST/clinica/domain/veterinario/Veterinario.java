@@ -30,7 +30,7 @@ public class Veterinario {
          this.nombre = dtoVeterinario.nombre();
          this.correo = dtoVeterinario.correo();
          this.especialidad = dtoVeterinario.especialidad();
-         this.direccion = new Direccion(dtoVeterinario.direccion().calle,dtoVeterinario.direccion().ciudad,dtoVeterinario.direccion().numero);
+         this.direccion = new Direccion(dtoVeterinario.direccion().calle,dtoVeterinario.direccion().ciudad,dtoVeterinario.direccion().colonia);
          this.telefono= dtoVeterinario.telefono();
          return this;
      }

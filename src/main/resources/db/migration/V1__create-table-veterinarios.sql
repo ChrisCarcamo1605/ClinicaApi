@@ -6,8 +6,6 @@ create table veterinarios(
     especialidad varchar(50) not null,
     calle varchar(20),
     ciudad varchar(50) not null,
-    numero varchar(10) not null
-
-
+    colonia varchar(10) not null
 
 )

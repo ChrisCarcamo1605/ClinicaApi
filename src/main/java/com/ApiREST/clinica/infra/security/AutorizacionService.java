@@ -16,9 +16,8 @@ public class AutorizacionService implements UserDetailsService {
     private UsuarioRepository usuarioRepository;
 
 
-    @Override
+    @Override               //Busca el usuario por el username(correo) en la DB
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
         return usuarioRepository.findByUsername(username);
     }
 }

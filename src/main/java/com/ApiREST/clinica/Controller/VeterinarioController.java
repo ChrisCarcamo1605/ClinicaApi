@@ -32,7 +32,7 @@ public class VeterinarioController {
       DatosRespuestaVeterinario datosRespuestaMedico = new DatosRespuestaVeterinario(medico.getId(),medico.getNombre(),medico.getCorreo()
               ,medico.getTelefono(), medico.getEspecialidad(),
               new Direccion(medico.getDireccion().calle,medico.getDireccion().ciudad
-                      ,medico.getDireccion().numero));
+                      ,medico.getDireccion().colonia));
 
       URI url = uriBuilder.path("/medico/{id}").buildAndExpand(medico.getId()).toUri();
 
@@ -53,7 +53,7 @@ public class VeterinarioController {
         return ResponseEntity.ok(new DatosRespuestaVeterinario(medico.getId(),medico.getNombre(),medico.getCorreo()
                 ,medico.getTelefono(), medico.getEspecialidad(),
                 new Direccion(medico.getDireccion().calle,medico.getDireccion().ciudad
-                        ,medico.getDireccion().numero)));
+                        ,medico.getDireccion().colonia)));
 
   }
   @DeleteMapping("/{id}")
