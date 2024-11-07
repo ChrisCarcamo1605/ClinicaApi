@@ -1,0 +1,32 @@
+/* Estilos generales para el body y el contenedor */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+}
+
+.contenedor {
+    display: flex;
+    height: 100vh; /* Altura completa de la ventana */
+}
+
+.columna {
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.izquierda {
+    background-color: #f4f4f4;
+    flex: 1; /* La columna izquierda ocupa una fracción */
+}
+
+.central {
+    background-color: #e0e0e0;
+    flex: 2; /* La columna central es dos veces más ancha */
+}
+
+.derecha {
+    background-color: #d1d1d1;
+    flex: 1; /* La columna derecha ocupa una fracción */
+}
