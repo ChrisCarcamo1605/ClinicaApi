@@ -30,7 +30,7 @@ public class SecurityConfiguration {
         return http.csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().authorizeHttpRequests().requestMatchers(HttpMethod.POST,"/crearusuario").permitAll()
-                .requestMatchers(HttpMethod.POST, "/login").permitAll()
+                .requestMatchers(HttpMethod.POST, "/login").permitAll().requestMatchers(HttpMethod.POST, "/veterinarios").permitAll()
                 .anyRequest().authenticated().and().addFilterBefore(chain, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }

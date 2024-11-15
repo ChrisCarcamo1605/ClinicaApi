@@ -1,32 +1,126 @@
-/* Estilos generales para el body y el contenedor */
-body, html {
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+/* Estilos generales */
+body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+h1, h2, h3 {
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
     margin: 0;
     padding: 0;
-    height: 100%;
-    font-family: Arial, sans-serif;
 }
 
-.contenedor {
+/* Barra de navegación */
+.navbar {
+    background-color: #936948;
+    color: white;
     display: flex;
-    height: 100vh; /* Altura completa de la ventana */
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
-.columna {
+.nav-links {
+    display: flex;
+    gap: 15px;
+}
+
+.nav-links li a {
+    color: white;
+    font-weight: bold;
+}
+
+/* Banner */
+.banner {
+    background: url('https://rodriguezyasoc.com/wp-content/uploads/2023/10/RyA-Blog-1200x400-1.jpg') no-repeat center center/cover;
+    color: #ffffff;
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.banner h1 {
+    font-size: 2.5rem;
+}
+
+/* Sección Servicios */
+.servicios {
+    background-color: #fff4e9;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.servicio-lista {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.servicio {
+    background: white;
     padding: 20px;
-    box-sizing: border-box;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 250px;
+    text-align: left;
 }
 
-.izquierda {
-    background-color: #f4f4f4;
-    flex: 1; /* La columna izquierda ocupa una fracción */
+/* Galería */
+.galeria {
+    background-color: #fff4e9;
+    padding: 40px 20px;
+    text-align: center;
 }
 
-.central {
-    background-color: #e0e0e0;
-    flex: 2; /* La columna central es dos veces más ancha */
+.galeria-imagenes {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
-.derecha {
-    background-color: #d1d1d1;
-    flex: 1; /* La columna derecha ocupa una fracción */
+.galeria-imagenes img {
+    width: 300px;
+    border-radius: 10px;
+}
+
+/* Footer */
+.footer {
+    background-color: #656565;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Scrollbar personalizado */
+body::-webkit-scrollbar {
+    width: 10px;
+}
+
+body::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+body::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }

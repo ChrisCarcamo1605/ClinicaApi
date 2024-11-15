@@ -10,10 +10,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 
 @RestController
@@ -22,8 +24,10 @@ public class VeterinarioController {
 
     @Autowired
     VeterinarioRepository medicoRepository;
-    
-  @PostMapping
+    @Autowired
+    private VeterinarioRepository veterinarioRepository;
+
+    @PostMapping
   public ResponseEntity<DatosRespuestaVeterinario> RegistrarPaciente(@Valid @RequestBody DatosRegistroVeterinario dtOmedico,
                                                                      UriComponentsBuilder uriBuilder){
 
@@ -40,9 +44,11 @@ public class VeterinarioController {
   }
 
   @GetMapping
-        public ResponseEntity<Page<DatosListadoVeterinario>> ListarMedico(@PageableDefault(size = 3) Pageable pageable){
+        public String ListarMedico(Model model){
+      List<Veterinario> veterinarios = veterinarioRepository.findAll();
+      model.addAttribute("veterinarios", veterinarios); // Agrega la lista de veterinarios al modelo
 
-      return ResponseEntity.ok(medicoRepository.findByActivoTrue(pageable).map(DatosListadoVeterinario::new));
+      return "veterinarios";
   }
 
   @Transactional
