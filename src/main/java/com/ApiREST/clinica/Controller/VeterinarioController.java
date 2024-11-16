@@ -28,45 +28,51 @@ public class VeterinarioController {
     private VeterinarioRepository veterinarioRepository;
 
     @PostMapping
-  public ResponseEntity<DatosRespuestaVeterinario> RegistrarPaciente(@Valid @RequestBody DatosRegistroVeterinario dtOmedico,
-                                                                     UriComponentsBuilder uriBuilder){
+    public ResponseEntity<DatosRespuestaVeterinario> RegistrarPaciente(@Valid @RequestBody DatosRegistroVeterinario dtOmedico,
+                                                                       UriComponentsBuilder uriBuilder) {
 
-      Veterinario medico = medicoRepository.save(new Veterinario().guardarVeterinario(dtOmedico));
+        Veterinario medico = medicoRepository.save(new Veterinario().guardarVeterinario(dtOmedico));
 
-      DatosRespuestaVeterinario datosRespuestaMedico = new DatosRespuestaVeterinario(medico.getId(),medico.getNombre(),medico.getCorreo()
-              ,medico.getTelefono(), medico.getEspecialidad(),
-              new Direccion(medico.getDireccion().calle,medico.getDireccion().ciudad
-                      ,medico.getDireccion().colonia));
+        DatosRespuestaVeterinario datosRespuestaMedico = new DatosRespuestaVeterinario(medico.getId(), medico.getNombre(), medico.getCorreo()
+                , medico.getTelefono(), medico.getEspecialidad(),
+                new Direccion(medico.getDireccion().calle, medico.getDireccion().ciudad
+                        , medico.getDireccion().colonia));
 
-      URI url = uriBuilder.path("/medico/{id}").buildAndExpand(medico.getId()).toUri();
+        URI url = uriBuilder.path("/medico/{id}").buildAndExpand(medico.getId()).toUri();
 
-     return ResponseEntity.created(url).body(datosRespuestaMedico);
-  }
+        return ResponseEntity.created(url).body(datosRespuestaMedico);
+    }
 
-  @GetMapping
-        public String ListarMedico(Model model){
-      List<Veterinario> veterinarios = veterinarioRepository.findAll();
-      model.addAttribute("veterinarios", veterinarios); // Agrega la lista de veterinarios al modelo
+//    @GetMapping
+//    public ResponseEntity<Page<DatosListadoVeterinario>> ListarMedico(@PageableDefault(size = 3) Pageable pageable) {
+//
+//        return ResponseEntity.ok(medicoRepository.findByActivoTrue(pageable).map(DatosListadoVeterinario::new));
+//    }
+    @GetMapping("/")
+    public String ListarMedico() {
 
-      return "veterinarios";
-  }
+        return "CrearVeterinario.jsp";
+    }
 
-  @Transactional
-  @PutMapping
-    public ResponseEntity<DatosRespuestaVeterinario> ActualizarMedico(@Valid @RequestBody DatosActualizarVeterinario dtOmedico){
+
+
+    @Transactional
+    @PutMapping
+    public ResponseEntity<DatosRespuestaVeterinario> ActualizarMedico(@Valid @RequestBody DatosActualizarVeterinario dtOmedico) {
         Veterinario medico = medicoRepository.getReferenceById(dtOmedico.id());
         medico.actualizarVeterinario(dtOmedico);
-        return ResponseEntity.ok(new DatosRespuestaVeterinario(medico.getId(),medico.getNombre(),medico.getCorreo()
-                ,medico.getTelefono(), medico.getEspecialidad(),
-                new Direccion(medico.getDireccion().calle,medico.getDireccion().ciudad
-                        ,medico.getDireccion().colonia)));
+        return ResponseEntity.ok(new DatosRespuestaVeterinario(medico.getId(), medico.getNombre(), medico.getCorreo()
+                , medico.getTelefono(), medico.getEspecialidad(),
+                new Direccion(medico.getDireccion().calle, medico.getDireccion().ciudad
+                        , medico.getDireccion().colonia)));
 
-  }
-  @DeleteMapping("/{id}")
-  @Transactional
-    public ResponseEntity eliminarMedico(@PathVariable Long id){
-      Veterinario medico = medicoRepository.getReferenceById(id);
-      medico.eliminarVeterinario();
-      return ResponseEntity.noContent().build();
-  }
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity eliminarMedico(@PathVariable Long id) {
+        Veterinario medico = medicoRepository.getReferenceById(id);
+        medico.eliminarVeterinario();
+        return ResponseEntity.noContent().build();
+    }
 }

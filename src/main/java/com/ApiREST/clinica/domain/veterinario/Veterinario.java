@@ -2,8 +2,12 @@ package com.ApiREST.clinica.domain.veterinario;
 
 
 import com.ApiREST.clinica.domain.direccion.Direccion;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.time.LocalDateTime;
 
 @Table(name = "veterinarios")
 @Entity(name = "Veterinario")
@@ -24,6 +28,8 @@ public class Veterinario {
      @Embedded
      Direccion direccion;
      Boolean activo=true;
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+     LocalDateTime fecha;
 
      public Veterinario guardarVeterinario(DatosRegistroVeterinario dtoVeterinario){
          this.activo=activo;
@@ -32,8 +38,10 @@ public class Veterinario {
          this.especialidad = dtoVeterinario.especialidad();
          this.direccion = new Direccion(dtoVeterinario.direccion().calle,dtoVeterinario.direccion().ciudad,dtoVeterinario.direccion().colonia);
          this.telefono= dtoVeterinario.telefono();
+         this.fecha =null;
          return this;
      }
+
      public Veterinario actualizarVeterinario(DatosActualizarVeterinario dtoVeterinario){
 
          if(dtoVeterinario.telefono()!=null){

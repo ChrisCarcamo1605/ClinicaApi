@@ -1,0 +1,1 @@
+alter table veterinarios modify fecha datetime default null;

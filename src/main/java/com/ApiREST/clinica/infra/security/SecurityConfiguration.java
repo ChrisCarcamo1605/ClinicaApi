@@ -23,16 +23,19 @@ public class SecurityConfiguration {
     private SecurityFilter chain;
 
 
-
-    //Configuracion de seguridad donde definimos la politica de sesion, las rutas permitidas sin autenticacion y los permisos q tienen
+//    @Bean
+//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//        return http.csrf().disable()
+//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//                .and().authorizeHttpRequests().requestMatchers(HttpMethod.POST, "/crearusuario").permitAll()
+//                .requestMatchers(HttpMethod.POST, "/login").permitAll().requestMatchers(HttpMethod.POST, "/veterinario").permitAll()
+//                .anyRequest().authenticated().and().addFilterBefore(chain, UsernamePasswordAuthenticationFilter.class)
+//                .build();
+//    }
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().authorizeHttpRequests().requestMatchers(HttpMethod.POST,"/crearusuario").permitAll()
-                .requestMatchers(HttpMethod.POST, "/login").permitAll().requestMatchers(HttpMethod.POST, "/veterinarios").permitAll()
-                .anyRequest().authenticated().and().addFilterBefore(chain, UsernamePasswordAuthenticationFilter.class)
-                .build();
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).disable().build();
     }
 
     @Bean
@@ -40,6 +43,7 @@ public class SecurityConfiguration {
 
         return authenticationConfiguration.getAuthenticationManager();
     }
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

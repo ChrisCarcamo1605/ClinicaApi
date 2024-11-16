@@ -1,11 +1,18 @@
 package com.ApiREST.clinica.Controller;
 
 
-import com.ApiREST.clinica.domain.consulta.Consulta;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.ApiREST.clinica.domain.consulta.*;
+import com.ApiREST.clinica.domain.usuario.UsuarioRepository;
+import com.ApiREST.clinica.domain.veterinario.Veterinario;
+import com.ApiREST.clinica.domain.veterinario.VeterinarioRepository;
+import com.ApiREST.clinica.infra.errores.ValidacionException;
+import jakarta.persistence.EntityManager;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/consultas")
@@ -13,9 +20,20 @@ public class ConsultasController {
 
 
 
+    @Autowired
+    ReservaConsultaService consultaService;
+
     @PostMapping
-    public void guardarConsulta(@RequestBody Consulta consulta){
+    public ResponseEntity guardarConsulta(@RequestBody @Valid DatosReservaConsulta dtoConsulta) {
+        var consulta = consultaService.guardarConsulta(dtoConsulta);
+        return ResponseEntity.ok(new DatosDetallesConsulta(consulta));
+    }
 
 
-}
+    @DeleteMapping
+    public void cancelarConsulta(@RequestBody @PathVariable DatosCancelarConsulta dto) {
+
+    }
+
+
 }

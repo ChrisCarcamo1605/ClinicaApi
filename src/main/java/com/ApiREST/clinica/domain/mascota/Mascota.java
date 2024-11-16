@@ -17,11 +17,13 @@ import lombok.*;
 public class Mascota {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Long id;
     private String nombre;
     @Enumerated(EnumType.STRING)
-    TipoAnimal tipo;
+    TipoAnimal tipoanimal;
 
-    private Long dueño;
+    @JoinColumn(name = "iddueño")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Usuario dueño;
 
 }
