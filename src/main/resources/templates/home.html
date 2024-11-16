@@ -1,17 +1,22 @@
-<!DOCTYPE html>
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Veterinaria La Mascota</title>
-    <link rel="stylesheet" href="Prueba.css">
+
+    <link rel="stylesheet" th:href="@{/css/Prueba.css}">
+
+
+
 </head>
 <body>
 <!-- Encabezado -->
-<header class="navbar">
-    <div class="logo">🐾 Veterinaria La Mascota</div>
+<header th:class="navbar">
+    <div th:class="logo">🐾 Veterinaria La Mascota</div>
     <nav>
-        <ul class="nav-links">
+        <ul th:class="nav-links">
             <li><a href="#inicio">Inicio</a></li>
             <li><a href="#servicios">Servicios</a></li>
             <li><a href="#galeria">Galería</a></li>
@@ -21,28 +26,28 @@
 </header>
 
 <!-- Banner -->
-<section id="inicio" class="banner">
+<section id="inicio" th:class="banner">
     <h1>¡Cuidamos a tus amigos peludos!</h1>
     <p>Atención veterinaria integral para tus mascotas.</p>
 </section>
 
 <!-- Servicios -->
-<section id="servicios" class="servicios">
+<section id="servicios" th:class="servicios">
     <h2>Nuestros Servicios</h2>
-    <div class="servicio-lista">
-        <div class="servicio">
+    <div th:class="servicio-lista">
+        <div th:class="servicio">
             <h3>Consultas</h3>
             <p>Consulta médica general y especializada.</p>
         </div>
-        <div class="servicio">
+        <div th:class="servicio">
             <h3>Vacunación</h3>
             <p>Vacunación para todas las etapas de vida de tu mascota.</p>
         </div>
-        <div class="servicio">
+        <div th:class="servicio">
             <h3>Peluquería</h3>
             <p>Baños, cortes y estética profesional.</p>
         </div>
-        <div class="servicio">
+        <div th:class="servicio">
             <h3>Emergencias</h3>
             <p>Servicio de urgencias las 24 horas.</p>
         </div>
@@ -50,18 +55,22 @@
 </section>
 
 <!-- Galería -->
-<section id="galeria" class="galeria">
+<section id="galeria" th:class="galeria">
     <h2>Galería</h2>
-    <div class="galeria-imagenes">
-        <img src="https://lh5.googleusercontent.com/proxy/e6OK5VyUM3zrE_NPIGNJqfslmyUFOnfe0XTH6xlnb9PLsE0hS0vTcvUyIiFI-FMKang6XgJcO92i9_j0S6TpYzuH9SwxYglD5xsQV5HNW-y4aezdttTzskS7rK4vtVptjZlkRdoy7kW6oarB_URV8Fb2KfkiF0q0wjfO" alt="Mascota feliz">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDjgoNda3_nSZJ9BWkFSHwPOp26M_oDYr1sw&s" alt="Consulta veterinaria">
-        <img src="https://i.pinimg.com/474x/ae/fa/59/aefa5916c45d996ff5d4bd38d1703973.jpg" alt="Peluquería para mascotas">
-        <img src="https://www.ardeaprints.com/t/172/pet-hamster-looking-cute-wearing-red-christmas-24518790.jpg.webp" alt="Vacunación de mascotas">
+    <div th:class="galeria-imagenes">
+        <img src="https://lh5.googleusercontent.com/proxy/e6OK5VyUM3zrE_NPIGNJqfslmyUFOnfe0XTH6xlnb9PLsE0hS0vTcvUyIiFI-FMKang6XgJcO92i9_j0S6TpYzuH9SwxYglD5xsQV5HNW-y4aezdttTzskS7rK4vtVptjZlkRdoy7kW6oarB_URV8Fb2KfkiF0q0wjfO"
+             alt="Mascota feliz">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDjgoNda3_nSZJ9BWkFSHwPOp26M_oDYr1sw&s"
+             alt="Consulta veterinaria">
+        <img src="https://i.pinimg.com/474x/ae/fa/59/aefa5916c45d996ff5d4bd38d1703973.jpg"
+             alt="Peluquería para mascotas">
+        <img src="https://www.ardeaprints.com/t/172/pet-hamster-looking-cute-wearing-red-christmas-24518790.jpg.webp"
+             alt="Vacunación de mascotas">
     </div>
 </section>
 
 <!-- Pie de página -->
-<footer class="footer">
+<footer th:class="footer">
     <p>© 2024 Veterinaria La Mascota. Todos los derechos reservados.</p>
     <p>Contacto: 123-456-789 | veterinaria@lamascota.com</p>
 </footer>

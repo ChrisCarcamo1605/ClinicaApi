@@ -10,20 +10,21 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
-@RestController
+@Controller
 @RequestMapping("/veterinario")
 public class VeterinarioController {
 
-    @Autowired
-    VeterinarioRepository medicoRepository;
+
     @Autowired
     private VeterinarioRepository veterinarioRepository;
 
@@ -31,7 +32,7 @@ public class VeterinarioController {
     public ResponseEntity<DatosRespuestaVeterinario> RegistrarPaciente(@Valid @RequestBody DatosRegistroVeterinario dtOmedico,
                                                                        UriComponentsBuilder uriBuilder) {
 
-        Veterinario medico = medicoRepository.save(new Veterinario().guardarVeterinario(dtOmedico));
+        Veterinario medico = veterinarioRepository.save(new Veterinario().guardarVeterinario(dtOmedico));
 
         DatosRespuestaVeterinario datosRespuestaMedico = new DatosRespuestaVeterinario(medico.getId(), medico.getNombre(), medico.getCorreo()
                 , medico.getTelefono(), medico.getEspecialidad(),
@@ -48,18 +49,24 @@ public class VeterinarioController {
 //
 //        return ResponseEntity.ok(medicoRepository.findByActivoTrue(pageable).map(DatosListadoVeterinario::new));
 //    }
-    @GetMapping("/")
-    public String ListarMedico() {
 
-        return "CrearVeterinario.jsp";
+    @GetMapping
+    public String ListarMedico(Model model) {
+
+        List<Veterinario> veterinarios = veterinarioRepository.findAll();
+        List<DatosRespuestaVeterinario> veterinariosDTO = veterinarios.stream()
+                .map(v -> new DatosRespuestaVeterinario(v.getId(), v.getNombre(), v.getCorreo(),
+                        v.getTelefono(), v.getEspecialidad(),v.getDireccion()))
+                .collect(Collectors.toList());
+        model.addAttribute("veterinarios", veterinariosDTO);
+        return "crearVeterinario";
     }
-
 
 
     @Transactional
     @PutMapping
     public ResponseEntity<DatosRespuestaVeterinario> ActualizarMedico(@Valid @RequestBody DatosActualizarVeterinario dtOmedico) {
-        Veterinario medico = medicoRepository.getReferenceById(dtOmedico.id());
+        Veterinario medico = veterinarioRepository.getReferenceById(dtOmedico.id());
         medico.actualizarVeterinario(dtOmedico);
         return ResponseEntity.ok(new DatosRespuestaVeterinario(medico.getId(), medico.getNombre(), medico.getCorreo()
                 , medico.getTelefono(), medico.getEspecialidad(),
@@ -71,7 +78,7 @@ public class VeterinarioController {
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity eliminarMedico(@PathVariable Long id) {
-        Veterinario medico = medicoRepository.getReferenceById(id);
+        Veterinario medico = veterinarioRepository.getReferenceById(id);
         medico.eliminarVeterinario();
         return ResponseEntity.noContent().build();
     }
