@@ -1,6 +1,7 @@
 package com.ApiREST.clinica.domain.usuario;
 
 
+import com.ApiREST.clinica.domain.Autenticacion.DatosAutenticacionUsuario;
 import com.ApiREST.clinica.domain.direccion.Direccion;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -78,7 +79,7 @@ public class Usuario implements UserDetails {
         this.password = BCrypt.hashpw(usuario.password(), BCrypt.gensalt());
         this.dui = usuario.dui();
         this.telefono = usuario.telefono();
-        this.direccion = new Direccion(usuario.direccion().calle, usuario.direccion().ciudad, usuario.direccion().colonia);
+       this.direccion = new Direccion(usuario.direccion().calle, usuario.direccion().ciudad, usuario.direccion().colonia);
         this.activo = activo;
         return this;
     }

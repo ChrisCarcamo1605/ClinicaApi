@@ -30,20 +30,20 @@ public class UsuarioController {
 
 
 
-    @PostMapping
-    public ResponseEntity<DatosRespuestaUsuario> registrarUsuario(@RequestBody @Valid DatosAgregarUsuario datosAgregarPaciente,
-                                                                  UriComponentsBuilder uriComponentsBuilder) {
-
-        Usuario usuario = usuariosRepository.save(new Usuario().guardarUsuario(datosAgregarPaciente));
-
-        DatosRespuestaUsuario datosRespuestaPaciente = new DatosRespuestaUsuario(datosAgregarPaciente.nombre()
-                , datosAgregarPaciente.correo(), datosAgregarPaciente.telefono(), datosAgregarPaciente.dui(),
-                new Direccion(datosAgregarPaciente.direccion().calle,
-                        datosAgregarPaciente.direccion().ciudad, datosAgregarPaciente.direccion().colonia));
-
-        URI url = uriComponentsBuilder.path("/paciente").build().toUri();
-        return ResponseEntity.created(url).body(datosRespuestaPaciente);
-    }
+//    @PostMapping
+//    public ResponseEntity<DatosRespuestaUsuario> registrarUsuario(@RequestBody @Valid DatosAgregarUsuario datosAgregarPaciente,
+//                                                                  UriComponentsBuilder uriComponentsBuilder) {
+//
+//        Usuario usuario = usuariosRepository.save(new Usuario().guardarUsuario(datosAgregarPaciente));
+//
+//        DatosRespuestaUsuario datosRespuestaPaciente = new DatosRespuestaUsuario(datosAgregarPaciente.nombre()
+//                , datosAgregarPaciente.correo(), datosAgregarPaciente.telefono(), datosAgregarPaciente.dui(),
+//                new Direccion(datosAgregarPaciente.direccion().calle,
+//                        datosAgregarPaciente.direccion().ciudad, datosAgregarPaciente.direccion().colonia));
+//
+//        URI url = uriComponentsBuilder.path("/paciente").build().toUri();
+//        return ResponseEntity.created(url).body(datosRespuestaPaciente);
+//    }
 
     @GetMapping
     public ResponseEntity<Page<DatosListadoUsuario>> listarUsuarios(@PageableDefault(size = 3) Pageable pageable) {

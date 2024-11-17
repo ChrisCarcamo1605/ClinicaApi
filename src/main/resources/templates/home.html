@@ -5,8 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Veterinaria La Mascota</title>
-    <link rel="stylesheet" href="../static/css/Home.css">
-    <link rel="stylesheet" href="/css/Home.css">
+    <link rel="stylesheet" th:href="@{/css/Home.css}">
 </head>
 
 <body>
@@ -19,8 +18,8 @@
             <li><a href="#inicio">Inicio</a></li>
             <li><a href="#servicios">Servicios</a></li>
             <li><a href="#galeria">Galería</a></li>
-            <li><a href="#agendar">Agendar Cita</a></li>
-            <li><a href="#Agregar Mascota">Contacto</a></li>
+            <li><a href="#agendar-registrar">Agendar Cita</a></li>
+            <li><a href="#contacto">Contacto</a></li>
         </ul>
     </nav>
 </header>
@@ -69,41 +68,73 @@
     </div>
 </section>
 
-
 <!-- Sección Agendar Cita y Registrar Mascota -->
 <section id="agendar-registrar" class="agendar-registrar">
     <div class="form-item">
         <h2>Agendar Cita</h2>
-        <form action="#" method="post">
+        <form th:action="@{home/agendarCita}" th:object="${datos}" method="post">
             <label for="nombre">Nombre del dueño:</label>
-            <input type="text" id="nombre" name="nombre" required>
+            <input type="text" id="nombre" name="nombre" th:field="*{idUsuario}" required>
 
             <label for="mascota">Nombre de la mascota:</label>
-            <input type="text" id="mascota" name="mascota" required>
+            <input type="text" id="mascota" name="mascota" th:field="*{idMascota}" required>
 
             <label for="fecha">Fecha de la cita:</label>
-            <input type="date" id="fecha" name="fecha" required>
+            <input type="datetime-local" id="fecha" name="fecha" th:field="*{fecha}" required>
 
-            <label for="hora">Hora:</label>
-            <input type="time" id="hora" name="hora" required>
-
-            <label for="servicio">Servicio requerido:</label>
-            <select id="servicio" name="servicio">
-                <option value="consulta">Consulta Médica</option>
-                <option value="vacunacion">Vacunación</option>
-                <option value="peluqueria">Peluquería</option>
+            <label for="especialidad">Especialidad médica:</label>
+            <select id="especialidad" name="especialidad">
+                <option value="" disabled selected>Selecciona una especialidad</option>
+                <option value="ortopedista" th:value="'ORTOPEDISTA'">Ortopedista</option>
+                <option value="cirujano" th:value="'CIRUJANO'">Cirujano</option>
+                <option value="oftalmologo" th:value="'OFTALMÓLOGO'">Oftalmólogo</option>
+                <option value="fisioterapeuta" th:value="'FISIOTERAPEUTA'">Fisioterapeuta</option>
+                <option value="cardiologo" th:value="'CARDIOLOGO'">Cardiólogo</option>
+                <option value="dermatologo" th:value="'DERMATÓLOGO'">Dermatólogo</option>
             </select>
+
 
             <button type="submit">Agendar cita</button>
         </form>
     </div>
-
+</section>
 
 <!-- Pie de página -->
 <footer class="footer">
-    <p>© 2024 Veterinaria La Mascota. Todos los derechos reservados.</p>
-    <p>Contacto: <span th:text="${contacto.telefono}">123-456-789</span> | <span th:text="${contacto.email}">veterinaria@lamascota.com</span></p>
+<!--    <p>© 2024 Veterinaria La Mascota. Todos los derechos reservados.</p>-->
+<!--    <p>Contacto: <span th:text="${contacto.telefono}">123-456-789</span> |-->
+<!--        <span th:text="${contacto.email}">veterinaria@lamascota.com</span>-->
+<!--    </p>-->
 </footer>
-<script src="/static/css/Home.js" defer></script>
+
+<script th:src="@{Home.js}" defer></script>
+<script>
+    // Función para leer una cookie por su nombre
+    function getCookie(name) {
+        let cookieArr = document.cookie.split(';');
+
+        // Recorre todas las cookies y busca la que tenga el nombre especificado
+        for (let i = 0; i < cookieArr.length; i++) {
+            let cookie = cookieArr[i].trim();
+
+            // Si la cookie tiene el nombre deseado
+            if (cookie.startsWith(name + '=')) {
+                return cookie.substring(name.length + 1);
+            }
+        }
+        return null;
+    }
+
+
+    let jwtToken = getCookie("JWT");
+
+    if (jwtToken) {
+        console.log("JWT Token:", jwtToken); // Aquí puedes usar el token para enviarlo en una solicitud AJAX o algo más
+    } else {
+        console.log("No JWT token found in cookies.");
+
+    }
+</script>
+
 </body>
 </html>

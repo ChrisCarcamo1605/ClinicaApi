@@ -6,9 +6,6 @@ import com.ApiREST.clinica.domain.veterinario.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -59,7 +56,7 @@ public class VeterinarioController {
                         v.getTelefono(), v.getEspecialidad(),v.getDireccion()))
                 .collect(Collectors.toList());
         model.addAttribute("veterinarios", veterinariosDTO);
-        return "crearVeterinario";
+        return "listarVeterinario";
     }
 
 

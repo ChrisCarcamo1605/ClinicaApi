@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/css/Estilos.css}">
+    <title>Log in / Sign up</title>
+</head>
+<body>
+<div class="container" id="container">
+
+    <!-- Formulario de Sign Up -->
+    <div class="form-container sign-up-container">
+        <div th:if="${datosSesionUsuario == null}">
+            Error: El modelo 'datosSesionUsuario' no está inicializado.
+        </div>
+
+
+        <!-- El form debe tener la ruta correcta -->
+        <form th:action="@{/auth/sign}" th:object="${datosAgregarUsuario}" method="post">
+            <h1>Crear Cuenta</h1>
+
+            <!-- Mostrar errores generales si existen -->
+            <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+                <ul>
+                    <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
+                </ul>
+            </div>
+
+            <input type="text" th:field="*{nombre}" placeholder="nombre" required/>
+            <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></span>
+
+            <input type="email" th:field="*{correo}" placeholder="correo" required/>
+            <span th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}"></span>
+
+            <input type="password" th:field="*{password}" placeholder="password" required/>
+            <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+
+            <input type="text" th:field="*{telefono}" placeholder="telefono" required/>
+            <span th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"></span>
+
+            <input type="text" th:field="*{dui}" placeholder="dui" required/>
+            <span th:if="${#fields.hasErrors('dui')}" th:errors="*{dui}"></span>
+
+            <h3>Dirección</h3>
+            <input type="text" th:field="*{direccion.calle}" placeholder="Calle" required/>
+            <input type="text" th:field="*{direccion.ciudad}" placeholder="Ciudad" required/>
+            <input type="text" th:field="*{direccion.colonia}" placeholder="Colonia" required/>
+
+            <button type="submit">Aceptar</button>
+        </form>
+
+    </div>
+
+    <!-- Formulario de Log In -->
+    <div class="form-container sign-in-container">
+        <form th:action="@{/auth/login}" method="post" th:object="${datosSesionUsuario}">
+            <h1>Iniciar Sesión</h1>
+            <input type="text" th:field="*{login}" placeholder="Username"/>
+            <input type="password" th:field="*{password}" placeholder="Password"/>
+
+            <!-- Recuperar Contraseña -->
+            <a th:href="@{/recovery-password}">¿Olvidaste tu contraseña?</a>
+
+            <button th:href="HomeController" type="submit">Aceptar</button>
+        </form>
+    </div>
+
+    <!-- Panel de Información -->
+    <div class="overlay-container">
+        <div class="overlay">
+            <div class="overlay-panel overlay-left">
+                <h1>Ya tengo cuenta</h1>
+                <p>Si ya tienes una cuenta, inicia sesión ahora.</p>
+                <button class="ghost" id="signIn">Iniciar Sesión</button>
+            </div>
+            <div class="overlay-panel overlay-right">
+                <h1>Bienvenido de nuevo</h1>
+                <p>Si aún no tienes una cuenta, regístrate ahora mismo.</p>
+                <button class="ghost" id="signUp">Crear Cuenta</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Ruta del archivo JS -->
+<script th:src="@{Estilos.js}"></script>
+</body>
+</html>
