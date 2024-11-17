@@ -39,7 +39,7 @@ public class ReservaConsultaService {
         var veterinario = elegirVeterinario(dtoConsulta);
         var usuario = usuarioRepository.findById(dtoConsulta.idUsuario()).get();
         var mascota = mascotaRepository.findById(dtoConsulta.idMascota()).get();
-         return consultasRepository.save(new Consulta(usuario,veterinario,dtoConsulta.fecha(),mascota,true));
+        return consultasRepository.save(new Consulta(usuario, veterinario, dtoConsulta.fecha(), mascota, true));
 
     }
 
@@ -57,7 +57,7 @@ public class ReservaConsultaService {
 
     }
 
-    public void cancelarConsulta( DatosCancelarConsulta dto) {
+    public void cancelarConsulta(DatosCancelarConsulta dto) {
         if (!usuarioRepository.existsById(dto.id())) {
 
             throw new ValidacionException("El id no hace referencia a ninguna consulta");

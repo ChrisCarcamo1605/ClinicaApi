@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 
 public record DatosReservaConsulta(
-        Long idReserva,
+        
         Long idVeterinario,
         Long idUsuario,
         Especialidad especialidad,
