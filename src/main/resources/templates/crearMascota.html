@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Mascota</title>
+    <link rel="stylesheet" href="../static/css/Home.css">
+</head>
+
+<body>
+
+<!-- Encabezado -->
+<header class="navbar">
+    <div class="logo">🐾 Veterinaria La Mascota</div>
+    <nav>
+        <ul class="nav-links">
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#servicios">Servicios</a></li>
+            <li><a href="#galeria">Galería</a></li>
+            <li><a href="#agendar">Agendar Cita</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+            <li><a href="#registrar-mascota">Registrar Mascota</a></li> <!-- Enlace a Registrar Mascota -->
+        </ul>
+    </nav>
+</header>
+
+
+<section id="agendar-registrar" class="agendar-registrar">
+    <h2>Registrar Mascota</h2>
+    <form action="#" th:action="@{/mascotas/registrar}" method="post">
+        <label for="nombre">Nombre de la Mascota:</label>
+        <input type="text" id="nombre" name="nombre" required />
+
+        <label for="tipoanimal">Tipo de Animal:</label>
+        <select id="tipoanimal" name="tipoanimal" required>
+            <option value="PERRO">🐕Perro</option>
+            <option value="GATO">🐈Gato</option>
+            <option value="AVE">🦜Ave</option>
+        </select>
+
+        <label for="nombre-dueño">Nombre del Propietario:</label>
+        <input type="text" id="nombre-dueño" name="nombre-dueño" th:value="${usuario.nombre}" readonly />
+
+        <input type="hidden" name="dueño" th:value="${usuario.id}" />
+
+        <button type="submit">Registrar Mascota</button>
+    </form>
+</section>
+
+
+
+</body>
+</html>

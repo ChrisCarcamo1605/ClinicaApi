@@ -29,7 +29,7 @@
             <td th:text="${veterinario.correo}"></td>
             <td th:text="${veterinario.telefono}"></td>
             <td>
-\                <a th:href="@{/editar/{id}(id=${veterinario.id})}" class="btn btn-primary btn-sm">Editar</a>
+                <a th:href="@{/editar/{id}(id=${veterinario.id})}" class="btn btn-primary btn-sm">Editar</a>
                 <a th:href="@{/eliminar/{id}(id=${veterinario.id})}" class="btn btn-danger btn-sm">Eliminar</a>
             </td>
         </tr>

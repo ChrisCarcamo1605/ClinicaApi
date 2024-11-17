@@ -1,78 +1,109 @@
-<!doctype html>
-<html xmlns:th="http://www.thymeleaf.org">
-<html lang="es">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Veterinaria La Mascota</title>
-
-    <link rel="stylesheet" th:href="@{/css/Prueba.css}">
-
-
-
+    <link rel="stylesheet" href="../static/css/Home.css">
+    <link rel="stylesheet" href="/css/Home.css">
 </head>
+
 <body>
+
 <!-- Encabezado -->
-<header th:class="navbar">
-    <div th:class="logo">🐾 Veterinaria La Mascota</div>
+<header class="navbar">
+    <div class="logo"> Veterinaria La Mascota</div>
     <nav>
-        <ul th:class="nav-links">
+        <ul class="nav-links">
             <li><a href="#inicio">Inicio</a></li>
             <li><a href="#servicios">Servicios</a></li>
             <li><a href="#galeria">Galería</a></li>
-            <li><a href="#contacto">Contacto</a></li>
+            <li><a href="#agendar">Agendar Cita</a></li>
+            <li><a href="#Agregar Mascota">Contacto</a></li>
         </ul>
     </nav>
 </header>
 
 <!-- Banner -->
-<section id="inicio" th:class="banner">
+<section id="inicio" class="banner">
     <h1>¡Cuidamos a tus amigos peludos!</h1>
     <p>Atención veterinaria integral para tus mascotas.</p>
 </section>
 
 <!-- Servicios -->
-<section id="servicios" th:class="servicios">
+<section id="servicios" class="servicios">
     <h2>Nuestros Servicios</h2>
-    <div th:class="servicio-lista">
-        <div th:class="servicio">
+    <div class="servicio-lista">
+        <div class="servicio">
             <h3>Consultas</h3>
             <p>Consulta médica general y especializada.</p>
         </div>
-        <div th:class="servicio">
+        <div class="servicio">
             <h3>Vacunación</h3>
             <p>Vacunación para todas las etapas de vida de tu mascota.</p>
         </div>
-        <div th:class="servicio">
+        <div class="servicio">
             <h3>Peluquería</h3>
             <p>Baños, cortes y estética profesional.</p>
         </div>
-        <div th:class="servicio">
+        <div class="servicio">
             <h3>Emergencias</h3>
             <p>Servicio de urgencias las 24 horas.</p>
         </div>
     </div>
 </section>
 
-<!-- Galería -->
-<section id="galeria" th:class="galeria">
+<!-- Sección Galería -->
+<section id="galeria" class="galeria">
     <h2>Galería</h2>
-    <div th:class="galeria-imagenes">
-        <img src="https://lh5.googleusercontent.com/proxy/e6OK5VyUM3zrE_NPIGNJqfslmyUFOnfe0XTH6xlnb9PLsE0hS0vTcvUyIiFI-FMKang6XgJcO92i9_j0S6TpYzuH9SwxYglD5xsQV5HNW-y4aezdttTzskS7rK4vtVptjZlkRdoy7kW6oarB_URV8Fb2KfkiF0q0wjfO"
-             alt="Mascota feliz">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDjgoNda3_nSZJ9BWkFSHwPOp26M_oDYr1sw&s"
-             alt="Consulta veterinaria">
-        <img src="https://i.pinimg.com/474x/ae/fa/59/aefa5916c45d996ff5d4bd38d1703973.jpg"
-             alt="Peluquería para mascotas">
-        <img src="https://www.ardeaprints.com/t/172/pet-hamster-looking-cute-wearing-red-christmas-24518790.jpg.webp"
-             alt="Vacunación de mascotas">
+    <div class="galeria-container">
+        <div class="galeria-imagenes">
+            <img src="https://via.placeholder.com/600x400/ff7f7f/333333?text=Imagen+1" alt="Imagen 1">
+            <img src="https://via.placeholder.com/600x400/7f7fff/333333?text=Imagen+2" alt="Imagen 2">
+            <img src="https://via.placeholder.com/600x400/7fff7f/333333?text=Imagen+3" alt="Imagen 3">
+            <img src="https://via.placeholder.com/600x400/ffff7f/333333?text=Imagen+4" alt="Imagen 4">
+        </div>
+        <button class="prev">&#10094;</button>
+        <button class="next">&#10095;</button>
     </div>
 </section>
 
+
+<!-- Sección Agendar Cita y Registrar Mascota -->
+<section id="agendar-registrar" class="agendar-registrar">
+    <div class="form-item">
+        <h2>Agendar Cita</h2>
+        <form action="#" method="post">
+            <label for="nombre">Nombre del dueño:</label>
+            <input type="text" id="nombre" name="nombre" required>
+
+            <label for="mascota">Nombre de la mascota:</label>
+            <input type="text" id="mascota" name="mascota" required>
+
+            <label for="fecha">Fecha de la cita:</label>
+            <input type="date" id="fecha" name="fecha" required>
+
+            <label for="hora">Hora:</label>
+            <input type="time" id="hora" name="hora" required>
+
+            <label for="servicio">Servicio requerido:</label>
+            <select id="servicio" name="servicio">
+                <option value="consulta">Consulta Médica</option>
+                <option value="vacunacion">Vacunación</option>
+                <option value="peluqueria">Peluquería</option>
+            </select>
+
+            <button type="submit">Agendar cita</button>
+        </form>
+    </div>
+
+
 <!-- Pie de página -->
-<footer th:class="footer">
+<footer class="footer">
     <p>© 2024 Veterinaria La Mascota. Todos los derechos reservados.</p>
-    <p>Contacto: 123-456-789 | veterinaria@lamascota.com</p>
+    <p>Contacto: <span th:text="${contacto.telefono}">123-456-789</span> | <span th:text="${contacto.email}">veterinaria@lamascota.com</span></p>
 </footer>
+<script src="/static/css/Home.js" defer></script>
 </body>
 </html>

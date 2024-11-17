@@ -1,0 +1,231 @@
+/* Estilo general */
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+
+body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.6;
+    background-color: #fff9f3;
+    color: #333;
+    overflow-y: scroll;
+}
+
+h1, h2, h3 {
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Barra de navegación */
+header {
+    background-color: #936948;
+    color: white;
+    padding: 10px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+}
+
+.nav-links li a {
+    color: white;
+    font-weight: bold;
+}
+
+/* Banner */
+.banner {
+    background: url('https://cruelty.farm/wp-content/uploads/2024/03/caw-banner.jpg') no-repeat center center/cover;
+    color: #4e3b2d;
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.banner h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+/* Sección Servicios */
+.servicios {
+    background-color: #fff9f3;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.servicio-lista {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.servicio {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 250px;
+    margin: 20px auto;
+}
+
+.servicio h3 {
+    color: #4e3b2d;
+}
+
+/* Sección Galería */
+.galeria {
+    background-color: #f4f4f4;
+    padding: 40px 20px;
+    text-align: center;
+    position: relative;
+}
+
+.galeria h2 {
+    font-size: 2rem;
+    color: #4e3b2d;
+    margin-bottom: 20px;
+}
+
+.galeria-container {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* Para que solo se vea una imagen completa */
+}
+
+.galeria-imagenes {
+    display: flex;
+    transition: transform 0.3s ease-in-out;
+}
+
+.galeria-imagenes img {
+    width: 80%; /* Reducimos el tamaño de las imágenes para mostrar las adyacentes */
+    max-width: 600px; /* Aseguramos un tamaño máximo para la imagen */
+    margin: 0 10px; /* Espaciado entre imágenes */
+    border-radius: 10px;
+    object-fit: cover; /* Asegura que la imagen se recorte correctamente para mantener la proporción */
+}
+
+/* Flechas de navegación (fijas en los extremos) */
+.prev, .next {
+    position: fixed;
+    top: 50%;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    font-size: 2rem;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+    border-radius: 50%;
+    transform: translateY(-50%);
+    font-weight: bold;
+}
+
+.prev {
+    left: 10px; /* Flecha izquierda en el extremo izquierdo */
+}
+
+.next {
+    right: 10px; /* Flecha derecha en el extremo derecho */
+}
+
+.prev:hover, .next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Responsivo para pantallas pequeñas */
+@media (max-width: 768px) {
+    .galeria-imagenes img {
+        max-width: 90%; /* Ajustamos el tamaño de la imagen en pantallas pequeñas */
+        margin: 0 5px;
+    }
+}
+
+
+
+/* Pie de página */
+footer {
+    background-color: #656565;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Estilo para los formularios */
+form {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #4e3b2d;
+}
+
+form input, form select, form button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+form input[type="date"], form input[type="time"], form input[type="text"], form select {
+    font-size: 1rem;
+}
+
+form button {
+    background-color: #936948;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #784f31;
+}
+
+/* Estilo de los formularios en secciones separadas */
+#agendar-registrar {
+    padding: 40px 20px;
+    background-color: #f9f9f9;
+    text-align: center;
+}
+
+#agendar-registrar .form-item {
+    margin-bottom: 30px;
+}
+
+#agendar-registrar h2 {
+    font-size: 1.8rem;
+    color: #4e3b2d;
+    margin-bottom: 20px;
+}
