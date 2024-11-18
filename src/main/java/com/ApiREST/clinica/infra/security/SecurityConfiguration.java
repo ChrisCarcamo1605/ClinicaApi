@@ -13,6 +13,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.resource.PathResourceResolver;
 
 
 @Configuration
@@ -23,20 +26,27 @@ public class SecurityConfiguration {
     private SecurityFilter chain;
 
 
-//    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//        return http.csrf().disable()
-//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//                .and().authorizeHttpRequests().requestMatchers(HttpMethod.POST, "/crearusuario").permitAll()
-//                .requestMatchers(HttpMethod.POST, "/login").permitAll().requestMatchers(HttpMethod.POST, "/veterinario").permitAll()
-//                .anyRequest().authenticated().and().addFilterBefore(chain, UsernamePasswordAuthenticationFilter.class)
-//                .build();
-//    }
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).disable().build();
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .authorizeHttpRequests()
+                .requestMatchers(HttpMethod.GET, "/auth", "/login").permitAll() // Permitir acceso a estas rutas
+                .requestMatchers(HttpMethod.POST,"/auth/login").permitAll() // Permitir POST en /login
+                .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .addFilterBefore(chain, UsernamePasswordAuthenticationFilter.class)
+                .build();
     }
+
+
+//    @Bean
+//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//        return http.csrf().disable()
+//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).disable().build();
+//    }
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
@@ -48,4 +58,18 @@ public class SecurityConfiguration {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+    @Bean
+    public WebMvcConfigurer webMvcConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addResourceHandlers(ResourceHandlerRegistry registry) {
+                registry.addResourceHandler("/**")
+                        .addResourceLocations("classpath:/static/")
+                        .setCachePeriod(3600)
+                        .resourceChain(true)
+                        .addResolver(new PathResourceResolver());
+            }
+        };
+    }
+
 }

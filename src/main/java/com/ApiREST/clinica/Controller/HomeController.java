@@ -4,6 +4,7 @@ import com.ApiREST.clinica.domain.consulta.DatosDetallesConsulta;
 import com.ApiREST.clinica.domain.consulta.DatosReservaConsulta;
 import com.ApiREST.clinica.domain.consulta.ReservaConsultaService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +17,9 @@ import org.springframework.web.bind.annotation.*;
 public class HomeController {
 
     @GetMapping
-        public String home(Model model, HttpServletRequest request) {
+        public String home(Model model) {
 
-        String token = (String) request.getSession().getAttribute("jwtToken");
-        model.addAttribute("jwtToken", token);
+       ;
         model.addAttribute("datos", new DatosReservaConsulta(1l,1l,
                 null,null, null));
         return "home";

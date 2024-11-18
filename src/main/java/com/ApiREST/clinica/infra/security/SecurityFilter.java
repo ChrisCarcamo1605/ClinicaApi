@@ -5,6 +5,7 @@ import com.ApiREST.clinica.domain.usuario.UsuarioRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebFilter;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,32 +19,40 @@ import java.io.IOException;
 @Component
 public class SecurityFilter extends OncePerRequestFilter {
 
-
     @Autowired
     private TokenService tokenService;
+
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-
-    //Nuestra primera capa de seguridad, el que define si el usuario tiene un token y si este es valido para realizar request
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
+        String token = null;
 
-        var authHeader = request.getHeader("Authorization");
+        // Extraer el token de la cookie
+        if (request.getCookies() != null) {
+            for (Cookie cookie : request.getCookies()) {
+                if ("JWTtoken".equals(cookie.getName())) {
+                    token = cookie.getValue();
+                    break;
 
-        if (authHeader != null) {
+                }
 
-            var token = authHeader.replace("Bearer ", "");
+            }
+            System.out.println("ESTE ES EL TOKEN DE LA COOKIE PA:"+token);
             var subject = tokenService.verificarToken(token);
 
-            if(subject != null) {
+            if (subject != null) {
 
-               var usuario = usuarioRepository.findByUsername(subject);
-               var authentication = new UsernamePasswordAuthenticationToken(usuario, null,
-                       usuario.getAuthorities());
-               SecurityContextHolder.getContext().setAuthentication(authentication);
+                var usuario = usuarioRepository.findByUsername(subject);
+                var authentication = new UsernamePasswordAuthenticationToken(usuario, null,
+                        usuario.getAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         }
         filterChain.doFilter(request, response);
     }
+
 }
+

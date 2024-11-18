@@ -6,11 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Veterinaria La Mascota</title>
     <link rel="stylesheet" th:href="@{/css/Home.css}">
-</head>
+    <script th:src="@{/js/Home.js}"></script>
 
+</head>
 <body>
 
-<!-- Encabezado -->
+
+
+
+
+
 <header class="navbar">
     <div class="logo"> Veterinaria La Mascota</div>
     <nav>
@@ -23,14 +28,10 @@
         </ul>
     </nav>
 </header>
-
-<!-- Banner -->
 <section id="inicio" class="banner">
     <h1>¡Cuidamos a tus amigos peludos!</h1>
     <p>Atención veterinaria integral para tus mascotas.</p>
 </section>
-
-<!-- Servicios -->
 <section id="servicios" class="servicios">
     <h2>Nuestros Servicios</h2>
     <div class="servicio-lista">
@@ -52,8 +53,6 @@
         </div>
     </div>
 </section>
-
-<!-- Sección Galería -->
 <section id="galeria" class="galeria">
     <h2>Galería</h2>
     <div class="galeria-container">
@@ -67,8 +66,6 @@
         <button class="next">&#10095;</button>
     </div>
 </section>
-
-<!-- Sección Agendar Cita y Registrar Mascota -->
 <section id="agendar-registrar" class="agendar-registrar">
     <div class="form-item">
         <h2>Agendar Cita</h2>
@@ -92,8 +89,6 @@
                 <option value="cardiologo" th:value="'CARDIOLOGO'">Cardiólogo</option>
                 <option value="dermatologo" th:value="'DERMATÓLOGO'">Dermatólogo</option>
             </select>
-
-
             <button type="submit">Agendar cita</button>
         </form>
     </div>
@@ -106,35 +101,5 @@
 <!--        <span th:text="${contacto.email}">veterinaria@lamascota.com</span>-->
 <!--    </p>-->
 </footer>
-
-<script th:src="@{Home.js}" defer></script>
-<script>
-    // Función para leer una cookie por su nombre
-    function getCookie(name) {
-        let cookieArr = document.cookie.split(';');
-
-        // Recorre todas las cookies y busca la que tenga el nombre especificado
-        for (let i = 0; i < cookieArr.length; i++) {
-            let cookie = cookieArr[i].trim();
-
-            // Si la cookie tiene el nombre deseado
-            if (cookie.startsWith(name + '=')) {
-                return cookie.substring(name.length + 1);
-            }
-        }
-        return null;
-    }
-
-
-    let jwtToken = getCookie("JWT");
-
-    if (jwtToken) {
-        console.log("JWT Token:", jwtToken); // Aquí puedes usar el token para enviarlo en una solicitud AJAX o algo más
-    } else {
-        console.log("No JWT token found in cookies.");
-
-    }
-</script>
-
 </body>
 </html>

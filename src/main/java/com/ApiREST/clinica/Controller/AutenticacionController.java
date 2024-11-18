@@ -4,11 +4,15 @@ package com.ApiREST.clinica.Controller;
 import com.ApiREST.clinica.domain.Autenticacion.DatosAutenticacionUsuario;
 import com.ApiREST.clinica.domain.direccion.Direccion;
 import com.ApiREST.clinica.domain.usuario.*;
+import com.ApiREST.clinica.infra.security.DatosJWTtoken;
 import com.ApiREST.clinica.infra.security.TokenService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -33,41 +37,40 @@ public class AutenticacionController {
 
     @GetMapping()
     public String mostrarFormularioLogin(Model model) {
-        Direccion direccion = new Direccion("","","");
+        Direccion direccion = new Direccion("", "", "");
         model.addAttribute("datosAgregarUsuario", new DatosAgregarUsuario("", "",
-                "", "", "",direccion));
+                "", "", "", direccion));
 
-        model.addAttribute("datosSesionUsuario",new DatosAutenticacionUsuario("",""));
+        model.addAttribute("datosSesionUsuario", new DatosAutenticacionUsuario("", ""));
         return "loginRegister";
     }
 
 
     @PostMapping("/login")
-    public String iniciarSesion(@ModelAttribute @Valid DatosAutenticacionUsuario datosAutenticacionUsuario,
-                                HttpServletResponse response,
-                                Model model) {
+    public String login(
+            @ModelAttribute DatosAutenticacionUsuario datosAutenticacionUsuario,
+            HttpServletResponse response) {
         try {
             Authentication authtoken = new UsernamePasswordAuthenticationToken(
                     datosAutenticacionUsuario.login(), datosAutenticacionUsuario.password());
             var usuarioAutenticado = authenticationManager.authenticate(authtoken);
             var JWTtoken = tokenService.crearToken((Usuario) usuarioAutenticado.getPrincipal());
 
-            Cookie jwtCookie = new Cookie("JWTtoken", JWTtoken);
-            jwtCookie.setHttpOnly(true);
-            jwtCookie.setSecure(true);
-            jwtCookie.setPath("/");
-            jwtCookie.setMaxAge(60 * 60 * 24);
-
-
-            response.addCookie(jwtCookie);
+            Cookie cookie = new Cookie("JWTtoken", JWTtoken);
+         //   cookie.setHttpOnly(true);
+            cookie.setSecure(true);
+            cookie.setPath("/");
+            response.addCookie(cookie);
 
             return "redirect:/home";
-        } catch (AuthenticationException e) {
-            // Si la autenticación falla
-            model.addAttribute("error", "Credenciales incorrectas");
-            return "loginRegister";
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return "redirect:/auth";
         }
     }
+
+
+
 
     @GetMapping("/sign")
     public String mostrarFormularioRegistro(Model model) {
@@ -109,7 +112,6 @@ public class AutenticacionController {
             return "formWithErrors";
         }
     }
-
 
 
 }

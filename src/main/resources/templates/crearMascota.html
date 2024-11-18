@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrar Mascota</title>
-    <link rel="stylesheet" href="../static/css/Home.css">
+    <link rel="stylesheet" th:href="@{/css/Home.css}">
 </head>
 
 <body>
@@ -28,7 +28,7 @@
 
 <section id="agendar-registrar" class="agendar-registrar">
     <h2>Registrar Mascota</h2>
-    <form action="#" th:action="@{/mascotas/registrar}" method="post">
+   <form  th:action="@{mascotas/registrar}" method="post">
         <label for="nombre">Nombre de la Mascota:</label>
         <input type="text" id="nombre" name="nombre" required />
 
@@ -44,7 +44,7 @@
 
         <input type="hidden" name="dueño" th:value="${usuario.id}" />
 
-        <button type="submit">Registrar Mascota</button>
+        <button  type="submit">Registrar Mascota</button>
     </form>
 </section>
 
