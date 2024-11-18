@@ -30,6 +30,7 @@ public class UsuarioController {
 
 
 
+
 //    @PostMapping
 //    public ResponseEntity<DatosRespuestaUsuario> registrarUsuario(@RequestBody @Valid DatosAgregarUsuario datosAgregarPaciente,
 //                                                                  UriComponentsBuilder uriComponentsBuilder) {
@@ -71,6 +72,7 @@ public class UsuarioController {
         usuario.eliminarUsuario(id);
         return ResponseEntity.noContent().build();
     }
+
 }
 
 
