@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 public record DatosReservaConsulta(
         
-        Long idVeterinario,
+
         Long idUsuario,
         Especialidad especialidad,
         Long idMascota,

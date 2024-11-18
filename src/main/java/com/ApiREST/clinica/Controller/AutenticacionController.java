@@ -55,6 +55,7 @@ public class AutenticacionController {
                     datosAutenticacionUsuario.login(), datosAutenticacionUsuario.password());
             var usuarioAutenticado = authenticationManager.authenticate(authtoken);
             var JWTtoken = tokenService.crearToken((Usuario) usuarioAutenticado.getPrincipal());
+            System.out.println("token recien creado papito"+ JWTtoken);
 
             Cookie cookie = new Cookie("JWTtoken", JWTtoken);
          //   cookie.setHttpOnly(true);

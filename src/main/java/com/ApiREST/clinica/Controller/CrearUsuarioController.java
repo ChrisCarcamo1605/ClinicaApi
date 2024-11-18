@@ -24,7 +24,10 @@ public class CrearUsuarioController {
 
     @PostMapping
     public String crearUsuario(@ModelAttribute DatosAgregarUsuario datosAgregarUsuario) {
+
+
         usuarioRepository.save(new Usuario().guardarUsuario(datosAgregarUsuario));
         return "redirect:/login";
     }
+
 }

@@ -1,10 +1,11 @@
 package com.ApiREST.clinica.domain.mascota;
 
 
-
 import com.ApiREST.clinica.domain.usuario.Usuario;
+import com.ApiREST.clinica.domain.usuario.UsuarioRepository;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 
 @Table(name = "Mascotas")
@@ -25,5 +26,13 @@ public class Mascota {
     @JoinColumn(name = "iddueño")
     @ManyToOne(fetch = FetchType.LAZY)
     private Usuario dueño;
+
+
+    public Mascota(Usuario dueño, String nombre, TipoAnimal tipoanimal) {
+        this.dueño = dueño;
+        this.nombre = nombre;
+        this.tipoanimal = tipoanimal;
+
+    }
 
 }

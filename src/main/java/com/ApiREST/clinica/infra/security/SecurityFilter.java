@@ -40,7 +40,7 @@ public class SecurityFilter extends OncePerRequestFilter {
                 }
 
             }
-            System.out.println("ESTE ES EL TOKEN DE LA COOKIE PA:"+token);
+
             var subject = tokenService.verificarToken(token);
 
             if (subject != null) {
