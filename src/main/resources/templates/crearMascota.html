@@ -1,54 +1,58 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrar Mascota</title>
-    <link rel="stylesheet" href="../static/css/Home.css">
+    <link rel="stylesheet" th:href="@{/css/Home.css}">
 </head>
-
 <body>
 
-<!-- Encabezado -->
 <header class="navbar">
     <div class="logo">🐾 Veterinaria La Mascota</div>
     <nav>
         <ul class="nav-links">
-            <li><a href="#inicio">Inicio</a></li>
-            <li><a href="#servicios">Servicios</a></li>
-            <li><a href="#galeria">Galería</a></li>
-            <li><a href="#agendar">Agendar Cita</a></li>
-            <li><a href="#contacto">Contacto</a></li>
-            <li><a href="#registrar-mascota">Registrar Mascota</a></li> <!-- Enlace a Registrar Mascota -->
+            <li><a href="#" th:href="@{/home}">Inicio</a></li>
+            <li><a href="#" th:href="@{/home#servicios}">Servicios</a></li>
+            <li><a href="#" th:href="@{/home#galeria}">Galería</a></li>
+            <li><a href="#" th:href="@{/home#agendar}">Agendar Cita</a></li>
+            <li><a href="#" th:href="@{/mascotas/registrar}">Registrar Mascota</a></li>
         </ul>
     </nav>
 </header>
 
+<section class="agendar-registrar">
+    <div class="form-item">
+        <h2>Registrar Nueva Mascota</h2>
+        <form th:action="@{/mascotas/guardar}" th:object="${mascota}" method="post">
 
-<section id="agendar-registrar" class="agendar-registrar">
-    <h2>Registrar Mascota</h2>
-    <form action="#" th:action="@{/mascotas/registrar}" method="post">
-        <label for="nombre">Nombre de la Mascota:</label>
-        <input type="text" id="nombre" name="nombre" required />
+            <!-- Nombre de la mascota -->
+            <label for="nombre">Nombre de la Mascota:</label>
+            <input type="text" id="nombre" name="nombre" th:field="*{nombre}" required>
 
-        <label for="tipoanimal">Tipo de Animal:</label>
-        <select id="tipoanimal" name="tipoanimal" required>
-            <option value="PERRO">🐕Perro</option>
-            <option value="GATO">🐈Gato</option>
-            <option value="AVE">🦜Ave</option>
-        </select>
+            <!-- Tipo de animal -->
+            <label for="tipoanimal">Tipo de Animal:</label>
+            <select id="tipoanimal" name="tipoanimal" th:field="*{tipoanimal}">
+                <option value="PERRO">Perro</option>
+                <option value="GATO">Gato</option>
+                <option value="AVE">Ave</option>
+            </select>
 
-        <label for="nombre-dueño">Nombre del Propietario:</label>
-        <input type="text" id="nombre-dueño" name="nombre-dueño" th:value="${usuario.nombre}" readonly />
+            <!-- Dueño de la mascota -->
+            <label for="dueño">Seleccionar Dueño:</label>
+            <select id="dueño" name="dueño.id" th:field="*{dueño.id}">
+                <option th:each="usuario : ${usuarios}" th:value="${usuario.id}" th:text="${usuario.nombre}"></option>
+            </select>
 
-        <input type="hidden" name="dueño" th:value="${usuario.id}" />
-
-        <button type="submit">Registrar Mascota</button>
-    </form>
+            <button type="submit">Registrar Mascota</button>
+        </form>
+    </div>
 </section>
 
+<footer>
+    <p>© 2024 Veterinaria La Mascota. Todos los derechos reservados.</p>
+</footer>
 
-
+<script th:src="@{/js/Home.js}" defer></script>
 </body>
 </html>

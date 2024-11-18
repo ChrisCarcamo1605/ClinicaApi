@@ -1,10 +1,28 @@
-let currentIndex = 0;
-const images = document.querySelectorAll('.galeria-imagenes img');
-const totalImages = images.length;
+document.addEventListener('DOMContentLoaded', () => {
+    const prevButton = document.querySelector('.prev');
+    const nextButton = document.querySelector('.next');
+    const imagesContainer = document.querySelector('.galeria-imagenes');
 
-const prevButton = document.querySelector('.prev');
-const nextButton = document.querySelector('.next');
-//
+    let currentIndex = 0;
+    const images = document.querySelectorAll('.galeria-imagenes img');
+    const totalImages = images.length;
+
+    // Función para mostrar la siguiente imagen
+    function showNextImage() {
+        currentIndex = (currentIndex + 1) % totalImages;
+        imagesContainer.style.transform = `translateX(-${currentIndex * 80}%)`;
+    }
+
+    // Función para mostrar la imagen anterior
+    function showPrevImage() {
+        currentIndex = (currentIndex - 1 + totalImages) % totalImages;
+        imagesContainer.style.transform = `translateX(-${currentIndex * 80}%)`;
+    }
+
+    // Eventos de clic para las flechas
+    nextButton.addEventListener('click', showNextImage);
+    prevButton.addEventListener('click', showPrevImage);
+});
 // // Función para obtener el token JWT desde la cookie (o almacenamiento local)
 // function getJWTToken() {
 //     return document.cookie.replace(/(?:(?:^|.*;\s*)JWT\s*\=\s*([^;]*).*$)|^.*$/, "$1");
