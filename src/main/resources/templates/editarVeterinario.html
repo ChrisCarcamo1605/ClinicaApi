@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editar Veterinario</title>
+  <link rel="stylesheet" href="/css/Administrador.css">
+</head>
+<body>
+
+<!-- Formulario para editar un veterinario -->
+<div class="agendar-registrar">
+  <div class="form-item">
+    <h2>Editar Veterinario</h2>
+    <form action="/veterinario/editar" method="post">
+      <input type="hidden" name="id" th:value="${veterinario.id}">
+
+      <div>
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" th:value="${veterinario.nombre}" required>
+      </div>
+
+      <div>
+        <label for="correo">Correo:</label>
+        <input type="email" id="correo" name="correo" th:value="${veterinario.correo}" required>
+      </div>
+
+      <div>
+        <label for="telefono">Teléfono:</label>
+        <input type="tel" id="telefono" name="telefono" th:value="${veterinario.telefono}" required>
+      </div>
+
+      <div>
+        <label for="especialidad">Especialidad:</label>
+        <input type="text" id="especialidad" name="especialidad" th:value="${veterinario.especialidad}" required>
+      </div>
+
+      <div>
+        <label for="calle">Calle:</label>
+        <input type="text" id="calle" name="direccion.calle" th:value="${veterinario.direccion.calle}" required>
+      </div>
+
+      <div>
+        <label for="ciudad">Ciudad:</label>
+        <input type="text" id="ciudad" name="direccion.ciudad" th:value="${veterinario.direccion.ciudad}" required>
+      </div>
+
+      <div>
+        <label for="colonia">Colonia:</label>
+        <input type="text" id="colonia" name="direccion.colonia" th:value="${veterinario.direccion.colonia}" required>
+      </div>
+
+      <button type="submit">Actualizar</button>
+    </form>
+  </div>
+</div>
+
+<a href="/veterinario">Volver al listado</a>
+
+</body>
+</html>

@@ -5,24 +5,16 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-
 public record DatosRegistroVeterinario(Long id,
                                        @NotBlank
-
-                                  String nombre,
-
+                                       String nombre,
                                        @NotBlank
-                                  String correo,
-
+                                       String correo,
                                        @NotNull
-                                  Especialidad especialidad,
-
+                                       Especialidad especialidad,
                                        @NotBlank
-                                  String telefono,
-
+                                       String telefono,
                                        @NotNull
-                                  @Valid
-                                  Direccion direccion
-                       ){
-
+                                       @Valid
+                                       Direccion direccion) {
 }
