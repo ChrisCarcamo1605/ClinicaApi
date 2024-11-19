@@ -25,173 +25,98 @@ ul {
     padding: 0;
 }
 
+/* Nuevo Estilo para el Encabezado */
 header {
-    background-color: #f4f1e1; /* Blanco crema */
-    color: white;
-    padding: 10px 20px;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    display: flex; /* Usamos flexbox para distribuir los elementos */
-    justify-content: space-between; /* Distribuye el logo y los enlaces */
-    align-items: center; /* Alinea verticalmente los elementos */
-}
-
-.nav-links {
+    background-color: #4e3b2d; /* Gris oscuro para el fondo */
+    color: #6f4f28; /* Café oscuro para el texto */
+    padding: 20px 30px;
     display: flex;
-    justify-content: flex-end;
-    gap: 20px;
+    justify-content: space-between; /* Alineación entre el logo y los botones */
+    align-items: center; /* Alineación vertical */
 }
 
-/* Estilo de los enlaces del encabezado */
-.nav-links li a {
-    color: white;
+.header-title {
+    font-size: 1.8rem;
     font-weight: bold;
+    color: #6f4f28; /* Café oscuro */
+}
+
+.header-links {
+    display: flex;
+    gap: 15px;
+}
+
+.header-links a {
     padding: 10px 20px;
-    font-size: 1rem;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    display: inline-block;
-    position: relative;
-    transition: transform 0.3s ease, color 0.3s ease; /* Transición suave */
-}
-
-/* Efecto al pasar el mouse (hover) */
-.nav-links li a:hover {
-    transform: translateY(-5px); /* Desplaza el enlace hacia arriba */
-    color: #f4f4f4;              /* Cambia el color del texto */
-}
-
-/* Efecto al hacer clic (active) */
-.nav-links li a:active {
-    transform: translateY(-2px); /* Menos desplazamiento al hacer clic */
-    color: #e0e0e0;              /* Cambia el color al hacer clic */
-}
-.nav-links li a:hover {
-    transform: translateY(-5px);
-    color: #f4f4f4;
-    text-decoration: underline;
-    text-decoration-color: #936948;  /* Subraya el enlace con el color de la barra */
-}
-
-/* Banner */
-.banner {
-    background: url('https://cruelty.farm/wp-content/uploads/2024/03/caw-banner.jpg') no-repeat center center/cover;
-    color: #4e3b2d;
-    text-align: center;
-    padding: 100px 20px;
-}
-
-.banner h1 {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-}
-
-/* Sección Servicios */
-.servicios {
-    background-color: #fff9f3;
-    padding: 40px 20px;
-    text-align: center;
-}
-
-.servicio-lista {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-}
-
-.servicio {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 250px;
-    margin: 20px auto;
-}
-
-.servicio h3 {
-    color: #4e3b2d;
-}
-
-/* Sección Galería */
-.galeria {
-    background-color: #f4f4f4;
-    padding: 40px 20px;
-    text-align: center;
-    position: relative;
-}
-
-.galeria h2 {
-    font-size: 2rem;
-    color: #4e3b2d;
-    margin-bottom: 20px;
-}
-
-.galeria-container {
-    position: relative;
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden; /* Para que solo se vea una imagen completa */
-}
-
-.galeria-imagenes {
-    display: flex;
-    transition: transform 0.3s ease-in-out;
-}
-
-.galeria-imagenes img {
-    width: 80%; /* Reducimos el tamaño de las imágenes para mostrar las adyacentes */
-    max-width: 600px; /* Aseguramos un tamaño máximo para la imagen */
-    margin: 0 10px; /* Espaciado entre imágenes */
-    border-radius: 10px;
-    object-fit: cover; /* Asegura que la imagen se recorte correctamente para mantener la proporción */
-}
-
-/* Flechas de navegación (sobre la galería, no fijas en pantalla) */
-.prev, .next {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.7);
     color: white;
-    font-size: 2rem;
-    padding: 15px;
-    border: none;
-    cursor: pointer;
-    z-index: 10;
-    border-radius: 50%;
-    transition: all 0.3s ease;  /* Transición suave */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);  /* Sombra para dar profundidad */
+    background-color: #936948; /* Color para los botones */
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease-in-out;
+    font-size: 1rem;
 }
 
-.prev {
-    left: 20px; /* Flecha izquierda en el contenedor de imágenes */
+.header-links a:hover {
+    background-color: #4e3b2d; /* Fondo más oscuro cuando se pasa el ratón */
+    transform: scale(1.1); /* Efecto de aumento al pasar el ratón */
 }
 
-.next {
-    right: 20px; /* Flecha derecha en el contenedor de imágenes */
+/* Estilos para la tabla */
+.tabla {
+    width: 80%; /* Establece el ancho de la tabla */
+    margin: 20px auto; /* Centra la tabla en la página */
+    border-collapse: collapse;
+    background-color: #f2f2f2; /* Gris claro para el fondo de la tabla */
+    border-radius: 8px; /* Bordes redondeados */
 }
 
-/* Efecto hover: cambia el color de fondo y aumenta el tamaño */
-.prev:hover, .next:hover {
-    background-color: rgba(0, 0, 0, 0.9);
-    transform: translateY(-50%) scale(1.1);  /* Aumenta ligeramente el tamaño */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);  /* Sombra más intensa */
+.tabla-cabecera {
+    background-color: #4e3b2d; /* Gris oscuro para el encabezado de la tabla */
+    color: white;
+    text-align: left;
 }
 
-/* Responsivo para pantallas pequeñas */
-@media (max-width: 768px) {
-    .prev, .next {
-        padding: 12px; /* Reducimos el tamaño del botón en pantallas pequeñas */
-    }
+.tabla th, .tabla td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
 }
 
-/* Sección Agendar Cita y Registrar Mascota */
+.tabla tr:nth-child(even) {
+    background-color: #e6e6e6; /* Gris claro para las filas pares */
+}
+
+.tabla tr:hover {
+    background-color: #d9d9d9; /* Gris intermedio al pasar el mouse por encima de una fila */
+}
+
+/* Estilo de los botones de editar y eliminar */
+.btn {
+    padding: 5px 10px;
+    text-decoration: none;
+    color: white;
+    border-radius: 5px;
+    margin-right: 10px;
+    display: inline-block;
+    text-align: center;
+}
+
+.btn-editar {
+    background-color: #4e8b3f; /* Verde para editar */
+}
+
+.btn-editar:hover {
+    background-color: #3e6f2e; /* Un verde más oscuro al pasar el mouse */
+}
+
+.btn-eliminar {
+    background-color: #d9534f; /* Rojo para eliminar */
+}
+
+.btn-eliminar:hover {
+    background-color: #c9302c; /* Un rojo más oscuro al pasar el mouse */
+}
+
+/* Estilo para el formulario */
 .agendar-registrar {
     background-color: #fff9f3;
     padding: 40px 20px;

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Veterinario</title>
+    <link rel="stylesheet" href="/css/Administrador.css"> <!-- Enlaza con tu archivo CSS -->
+</head>
+<body>
+<header>
+    <!-- Enlaces alineados a la extrema derecha -->
+    <div class="header-links">
+        <a href="/veterinario" class="btn">Veterinarios</a>
+        <a href="/veterinario/crear" class="btn btn-crear">Crear Veterinario</a>
+    </div>
+</header>
+
+<!-- Formulario para crear un veterinario -->
+<div class="agendar-registrar">
+    <div class="form-item">
+        <h2>Crear Nuevo Veterinario</h2>
+        <form action="/veterinario/crear/registrar" method="post">
+
+            <!-- Nombre del veterinario -->
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" name="nombre" required="required" placeholder="" value="${dtoVeterinario.nombre}" />
+
+            <!-- Especialidad -->
+            <label for="especialidad">Especialidad</label>
+            <select name="especialidad" id="especialidad" required="required">
+                <option value="" disabled selected>Selecciona una especialidad</option>
+                <!-- Mostrar especialidades dinámicamente usando Thymeleaf -->
+                <option th:each="especialidad : ${especialidades}" th:value="${especialidad}" th:text="${especialidad}"></option>
+            </select>
+
+            <!-- Teléfono -->
+            <label for="telefono">Teléfono</label>
+            <input type="text" id="telefono" name="telefono" required="required" placeholder="" value="${dtoVeterinario.telefono}" />
+
+            <!-- Correo -->
+            <label for="correo">Correo</label>
+            <input type="email" id="correo" name="correo" required="required" placeholder="" value="${dtoVeterinario.correo}" />
+
+            <!-- Dirección -->
+            <h3>Dirección</h3>
+            <label for="calle">Calle</label>
+            <input type="text" id="calle" name="direccion.calle" required="required" value="${dtoVeterinario.direccion?.calle}" />
+
+            <label for="ciudad">Ciudad</label>
+            <input type="text" id="ciudad" name="direccion.ciudad" required="required" value="${dtoVeterinario.direccion?.ciudad}" />
+
+            <label for="colonia">Colonia</label>
+            <input type="text" id="colonia" name="direccion.colonia" required="required" value="${dtoVeterinario.direccion?.colonia}" />
+
+            <button type="submit" class="btn btn-editar">Crear Veterinario</button>
+        </form>
+
+        <!-- Enlace para cancelar -->
+        <a href="/veterinarios" class="btn">Cancelar</a>
+    </div>
+</div>
+
+</body>
+</html>

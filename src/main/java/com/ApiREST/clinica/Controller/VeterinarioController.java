@@ -1,6 +1,5 @@
 package com.ApiREST.clinica.Controller;
 
-
 import com.ApiREST.clinica.domain.direccion.Direccion;
 import com.ApiREST.clinica.domain.veterinario.*;
 import jakarta.transaction.Transactional;
@@ -16,67 +15,64 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
 @Controller
 @RequestMapping("/veterinario")
 public class VeterinarioController {
 
-
     @Autowired
     private VeterinarioRepository veterinarioRepository;
 
+    // Crear un nuevo Veterinario desde el formulario
+    @GetMapping("/crear")
+    public String mostrarFormularioDeCreacion() {
+        return "crearVeterinario"; // Retorna la vista de creación de veterinarios
+    }
+
     @PostMapping
-    public ResponseEntity<DatosRespuestaVeterinario> RegistrarPaciente(@Valid @RequestBody DatosRegistroVeterinario dtOmedico,
-                                                                       UriComponentsBuilder uriBuilder) {
-
-        Veterinario medico = veterinarioRepository.save(new Veterinario().guardarVeterinario(dtOmedico));
-
-        DatosRespuestaVeterinario datosRespuestaMedico = new DatosRespuestaVeterinario(medico.getId(), medico.getNombre(), medico.getCorreo()
-                , medico.getTelefono(), medico.getEspecialidad(),
-                new Direccion(medico.getDireccion().calle, medico.getDireccion().ciudad
-                        , medico.getDireccion().colonia));
-
-        URI url = uriBuilder.path("/medico/{id}").buildAndExpand(medico.getId()).toUri();
-
-        return ResponseEntity.created(url).body(datosRespuestaMedico);
+    public String registrarVeterinario(@Valid Veterinario veterinario, Model model) {
+        // Guardar el nuevo veterinario en la base de datos
+        veterinarioRepository.save(veterinario);
+        model.addAttribute("veterinarios", veterinarioRepository.findAll());
+        return "redirect:/veterinario"; // Redirige a la lista de veterinarios
     }
 
-//    @GetMapping
-//    public ResponseEntity<Page<DatosListadoVeterinario>> ListarMedico(@PageableDefault(size = 3) Pageable pageable) {
-//
-//        return ResponseEntity.ok(medicoRepository.findByActivoTrue(pageable).map(DatosListadoVeterinario::new));
-//    }
-
+    // Listar todos los Veterinarios
     @GetMapping
-    public String ListarMedico(Model model) {
-
+    public String listarVeterinarios(Model model) {
         List<Veterinario> veterinarios = veterinarioRepository.findAll();
-        List<DatosRespuestaVeterinario> veterinariosDTO = veterinarios.stream()
-                .map(v -> new DatosRespuestaVeterinario(v.getId(), v.getNombre(), v.getCorreo(),
-                        v.getTelefono(), v.getEspecialidad(),v.getDireccion()))
-                .collect(Collectors.toList());
-        model.addAttribute("veterinarios", veterinariosDTO);
-        return "listarVeterinario";
+        model.addAttribute("veterinarios", veterinarios);
+        return "listarVeterinario"; // Retorna la vista de listado de veterinarios
     }
 
-
-    @Transactional
-    @PutMapping
-    public ResponseEntity<DatosRespuestaVeterinario> ActualizarMedico(@Valid @RequestBody DatosActualizarVeterinario dtOmedico) {
-        Veterinario medico = veterinarioRepository.getReferenceById(dtOmedico.id());
-        medico.actualizarVeterinario(dtOmedico);
-        return ResponseEntity.ok(new DatosRespuestaVeterinario(medico.getId(), medico.getNombre(), medico.getCorreo()
-                , medico.getTelefono(), medico.getEspecialidad(),
-                new Direccion(medico.getDireccion().calle, medico.getDireccion().ciudad
-                        , medico.getDireccion().colonia)));
-
+    // Mostrar formulario de edición
+    @GetMapping("/editar/{id}")
+    public String mostrarFormularioDeEdicion(@PathVariable Long id, Model model) {
+        Veterinario veterinario = veterinarioRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Veterinario no encontrado"));
+        model.addAttribute("veterinario", veterinario);
+        return "editarVeterinario"; // Retorna la vista de edición
     }
 
-    @DeleteMapping("/{id}")
+    // Actualizar Veterinario
+    @PostMapping("/editarVeterinario")
+    public String actualizarVeterinario(@Valid Veterinario veterinario) {
+        veterinarioRepository.save(veterinario); // Guardar los cambios
+        return "redirect:/veterinario"; // Redirige a la lista de veterinarios
+    }
+
+    // Confirmar la eliminación de un Veterinario
+    @GetMapping("/eliminar/{id}")
+    public String confirmarEliminarVeterinario(@PathVariable Long id, Model model) {
+        Veterinario veterinario = veterinarioRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Veterinario no encontrado"));
+        model.addAttribute("veterinario", veterinario);
+        return "confirmDelVeterinario"; // Vista de confirmación de eliminación
+    }
+
+    // Eliminar Veterinario
+    @PostMapping("/eliminar/{id}")
     @Transactional
-    public ResponseEntity eliminarMedico(@PathVariable Long id) {
-        Veterinario medico = veterinarioRepository.getReferenceById(id);
-        medico.eliminarVeterinario();
-        return ResponseEntity.noContent().build();
+    public String eliminarVeterinario(@PathVariable Long id) {
+        Veterinario veterinario = veterinarioRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Veterinario no encontrado"));
+        veterinarioRepository.delete(veterinario); // Eliminar del repositorio
+        return "redirect:/veterinario"; // Redirigir al listado de veterinarios
     }
 }
