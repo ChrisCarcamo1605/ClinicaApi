@@ -19,38 +19,35 @@
 <div class="agendar-registrar">
     <div class="form-item">
         <h2>Crear Nuevo Veterinario</h2>
-        <form action="/veterinario/crear/registrar" method="post">
+        <form   th:object="${datosAgregarUsuario}"    th:action="@{/crear/registrar}" method="post">
 
             <!-- Nombre del veterinario -->
             <label for="nombre">Nombre</label>
-            <input type="text" id="nombre" name="nombre" required="required" placeholder="" value="${dtoVeterinario.nombre}" />
+            <input type="text" id="nombre" name="nombre" required="required" th:field="*{nombre}" />
 
-            <!-- Especialidad -->
-            <label for="especialidad">Especialidad</label>
-            <select name="especialidad" id="especialidad" required="required">
-                <option value="" disabled selected>Selecciona una especialidad</option>
-                <!-- Mostrar especialidades dinámicamente usando Thymeleaf -->
-                <option th:each="especialidad : ${especialidades}" th:value="${especialidad}" th:text="${especialidad}"></option>
-            </select>
 
-            <!-- Teléfono -->
+                <label for="especialidad">Especialidad:</label>
+                <select id="especialidad" name="especialidad">
+                    <option value="" disabled selected>Selecciona una especialidad</option>
+                    <option value="ortopedista" th:value="'ORTOPEDISTA'">Ortopedista</option>
+                    <option value="cirujano" th:value="'CIRUJANO'">Cirujano</option>
+                    <option value="oftalmologo" th:value="'OFTALMÓLOGO'">Oftalmólogo</option>
+                    <option value="fisioterapeuta" th:value="'FISIOTERAPEUTA'">Fisioterapeuta</option>
+                    <option value="cardiologo" th:value="'CARDIOLOGO'">Cardiólogo</option>
+                    <option value="dermatologo" th:value="'DERMATÓLOGO'">Dermatólogo</option>
+                </select>
+
+
             <label for="telefono">Teléfono</label>
-            <input type="text" id="telefono" name="telefono" required="required" placeholder="" value="${dtoVeterinario.telefono}" />
+            <input type="text" id="telefono" name="telefono" required="required"  th:field="*{telefono}"/>
 
-            <!-- Correo -->
             <label for="correo">Correo</label>
-            <input type="email" id="correo" name="correo" required="required" placeholder="" value="${dtoVeterinario.correo}" />
-
-            <!-- Dirección -->
+            <input type="email" id="correo" name="correo" required="required"
+                   placeholder="example@host.com"  th:field="*{correo}"/>
             <h3>Dirección</h3>
-            <label for="calle">Calle</label>
-            <input type="text" id="calle" name="direccion.calle" required="required" value="${dtoVeterinario.direccion?.calle}" />
-
-            <label for="ciudad">Ciudad</label>
-            <input type="text" id="ciudad" name="direccion.ciudad" required="required" value="${dtoVeterinario.direccion?.ciudad}" />
-
-            <label for="colonia">Colonia</label>
-            <input type="text" id="colonia" name="direccion.colonia" required="required" value="${dtoVeterinario.direccion?.colonia}" />
+            <input type="text" th:field="*{direccion.calle}" placeholder="Calle" required/>
+            <input type="text" th:field="*{direccion.ciudad}" placeholder="Ciudad" required/>
+            <input type="text" th:field="*{direccion.colonia}" placeholder="Colonia" required/>
 
             <button type="submit" class="btn btn-editar">Crear Veterinario</button>
         </form>

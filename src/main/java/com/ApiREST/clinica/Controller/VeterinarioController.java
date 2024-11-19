@@ -1,6 +1,8 @@
 package com.ApiREST.clinica.Controller;
 
+import com.ApiREST.clinica.domain.Autenticacion.DatosAutenticacionUsuario;
 import com.ApiREST.clinica.domain.direccion.Direccion;
+import com.ApiREST.clinica.domain.usuario.DatosAgregarUsuario;
 import com.ApiREST.clinica.domain.veterinario.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -22,26 +24,29 @@ public class VeterinarioController {
     @Autowired
     private VeterinarioRepository veterinarioRepository;
 
-    // Crear un nuevo Veterinario desde el formulario
     @GetMapping("/crear")
-    public String mostrarFormularioDeCreacion() {
-        return "crearVeterinario"; // Retorna la vista de creación de veterinarios
+    public String mostrarFormularioDeCreacion( Model model) {
+        if (!model.containsAttribute("veterinario")) {
+            Direccion direccion = new Direccion("", "", "");
+            DatosRegistroVeterinario datos = new DatosRegistroVeterinario("","",
+                    null,"",direccion);
+            model.addAttribute("datosAgregarUsuario", datos);
+        }
+        return "crearVeterinario";
     }
 
-    @PostMapping
-    public String registrarVeterinario(@Valid Veterinario veterinario, Model model) {
-        // Guardar el nuevo veterinario en la base de datos
-        veterinarioRepository.save(veterinario);
-        model.addAttribute("veterinarios", veterinarioRepository.findAll());
-        return "redirect:/veterinario"; // Redirige a la lista de veterinarios
+    @PostMapping("/crear/registrar")
+    public String registrarVeterinario(@Valid @ModelAttribute DatosRegistroVeterinario veterinario) {
+
+        veterinarioRepository.save(new Veterinario().guardarVeterinario(veterinario));
+        return "redirect:/veterinario";
     }
 
-    // Listar todos los Veterinarios
     @GetMapping
     public String listarVeterinarios(Model model) {
         List<Veterinario> veterinarios = veterinarioRepository.findAll();
         model.addAttribute("veterinarios", veterinarios);
-        return "listarVeterinario"; // Retorna la vista de listado de veterinarios
+        return "listarVeterinario";
     }
 
     // Mostrar formulario de edición
@@ -49,14 +54,14 @@ public class VeterinarioController {
     public String mostrarFormularioDeEdicion(@PathVariable Long id, Model model) {
         Veterinario veterinario = veterinarioRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Veterinario no encontrado"));
         model.addAttribute("veterinario", veterinario);
-        return "editarVeterinario"; // Retorna la vista de edición
+        return "editarVeterinario";
     }
 
     // Actualizar Veterinario
     @PostMapping("/editarVeterinario")
     public String actualizarVeterinario(@Valid Veterinario veterinario) {
-        veterinarioRepository.save(veterinario); // Guardar los cambios
-        return "redirect:/veterinario"; // Redirige a la lista de veterinarios
+        veterinarioRepository.save(veterinario);
+        return "redirect:/veterinario";
     }
 
     // Confirmar la eliminación de un Veterinario
@@ -64,7 +69,7 @@ public class VeterinarioController {
     public String confirmarEliminarVeterinario(@PathVariable Long id, Model model) {
         Veterinario veterinario = veterinarioRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Veterinario no encontrado"));
         model.addAttribute("veterinario", veterinario);
-        return "confirmDelVeterinario"; // Vista de confirmación de eliminación
+        return "confirmDelVeterinario";
     }
 
     // Eliminar Veterinario
@@ -72,7 +77,7 @@ public class VeterinarioController {
     @Transactional
     public String eliminarVeterinario(@PathVariable Long id) {
         Veterinario veterinario = veterinarioRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Veterinario no encontrado"));
-        veterinarioRepository.delete(veterinario); // Eliminar del repositorio
-        return "redirect:/veterinario"; // Redirigir al listado de veterinarios
+        veterinarioRepository.delete(veterinario);
+        return "redirect:/veterinario";
     }
 }
