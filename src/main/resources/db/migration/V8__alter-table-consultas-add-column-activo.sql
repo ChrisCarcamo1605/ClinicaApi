@@ -1,1 +1,0 @@
-alter table consultas add column activo int default 1;

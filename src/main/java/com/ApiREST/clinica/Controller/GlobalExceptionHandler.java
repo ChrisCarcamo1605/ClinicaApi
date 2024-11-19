@@ -15,11 +15,9 @@ public class GlobalExceptionHandler {
         // Para errores generales
         model.addAttribute("errorMessage", ex.getMessage());
 
-        // Para errores de validación (si los tienes)
         List<String> errors = new ArrayList<>();
-        // Añade tus errores a la lista
         model.addAttribute("errors", errors);
 
-        return "formWithErrors";
+        return "/formWithErrors";
     }
 }

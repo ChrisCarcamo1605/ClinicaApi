@@ -48,12 +48,6 @@ public class MascotaController {
             }
         }
 
-        if (token != null) {
-            System.out.println("Token encontradoPRRO: " + token);
-        } else {
-            System.out.println("No se encontró el token en la cookie.");
-        }
-
 
         Long idUsuario = tokenService.obtenerIdUsuario(token);
 

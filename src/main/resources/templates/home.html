@@ -7,6 +7,7 @@
     <title>Veterinaria La Mascota</title>
     <link rel="stylesheet" th:href="@{/css/Home.css}">
     <script th:src="@{/js/Home.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 </head>
 
@@ -75,23 +76,11 @@
     </div>
 </section>
 
-<!-- Sección Agendar Cita y Registrar Mascota -->
 <section id="agendar-registrar" class="agendar-registrar">
-    <div class="form-item">
-        <h2>Agendar Cita</h2>
-        <form th:action="@{home/agendarCita}" th:object="${datos}" method="post">
-
-            <input type="hidden" th:value="${id}" th:field="*{idUsuario}" required>
-
-             <label for="mascota">Seleccionar Mascota:</label>-->
-             <select id="mascota" name="idMascota" th:field="*{idMascota}">-->
-             <option th:each="mascota : ${mascotas}" th:value="${mascota.id}" th:text="${mascota.nombre}"></option>-->
-            </select>
-
-            <label for="fecha">Fecha de la cita:</label>
-            <input type="datetime-local" id="fecha" name="fecha" th:field="*{fecha}" required>
-
-            <label for="especialidad">Especialidad médica:</label>
+    <form th:action="@{/home/agendarCita}" method="post" id="consultaForm">
+        <input type="hidden" name="idUsuario" th:value="${idUsuario}" />
+        <div class="form-group">
+            <label for="especialidad">Especialidad:</label>
             <select id="especialidad" name="especialidad">
                 <option value="" disabled selected>Selecciona una especialidad</option>
                 <option value="ortopedista" th:value="'ORTOPEDISTA'">Ortopedista</option>
@@ -101,11 +90,33 @@
                 <option value="cardiologo" th:value="'CARDIOLOGO'">Cardiólogo</option>
                 <option value="dermatologo" th:value="'DERMATÓLOGO'">Dermatólogo</option>
             </select>
+        </div>
+
+        <div class="form-group">
+            <label for="idMascota">Seleccionar Mascota:</label>
+            <select id="idMascota" name="idMascota" class="form-control" required>
+                <option value="">Seleccione una mascota</option>
+                <option th:each="mascota : ${mascotas}"
+                        th:value="${mascota.id}"
+                        th:text="${mascota.nombre}"></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="fecha">Fecha y hora de la consulta:</label>
+            <div class="row">
+                <div class="col">
+                    <input type="date" id="fecha" name="fecha" class="form-control" required>
+                </div>
+            </div>
+            <!-- Campo oculto que puede usarse para enviar la fecha en un formato específico si es necesario -->
+            <input type="hidden" name="fechaCompleta" id="fechaCompleta">
+        </div>
 
 
-            <button type="submit">Agendar cita</button>
-        </form>
-    </div>
+        <button type="submit" class="btn btn-primary">Agendar Consulta</button>
+    </form>
+
 </section>
 
 <!-- Pie de página -->
@@ -113,34 +124,9 @@
     <p>© 2024 Veterinaria La Mascota. Todos los derechos reservados.</p>
 </footer>
 
-<script th:src="@{Home.js}" defer></script>
-<script>
-    // Función para leer una cookie por su nombre
-    function getCookie(name) {
-        let cookieArr = document.cookie.split(';');
-
-        // Recorre todas las cookies y busca la que tenga el nombre especificado
-        for (let i = 0; i < cookieArr.length; i++) {
-            let cookie = cookieArr[i].trim();
-
-            // Si la cookie tiene el nombre deseado
-            if (cookie.startsWith(name + '=')) {
-                return cookie.substring(name.length + 1);
-            }
-        }
-        return null;
-    }
+<script th:src="@{js/Home.js}" defer></script>
 
 
-    let jwtToken = getCookie("JWT");
-
-    if (jwtToken) {
-        console.log("JWT Token:", jwtToken); // Aquí puedes usar el token para enviarlo en una solicitud AJAX o algo más
-    } else {
-        console.log("No JWT token found in cookies.");
-
-    }
-</script>
 
 </body>
 </html>

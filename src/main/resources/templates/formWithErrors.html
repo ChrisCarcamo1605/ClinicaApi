@@ -4,7 +4,47 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Error - Crear Cuenta</title>
+    <title>Error - Crear Mascota</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        h1 {
+            color: #8B4513; /* Marrón */
+        }
+        h3 {
+            color: #BF5B20; /* Marrón claro */
+        }
+        a {
+            text-decoration: none;
+            color: #fff;
+            background-color: #8B4513; /* Marrón */
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        a:hover {
+            background-color: #BF5B20; /* Marrón claro */
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background-color: #f2e5d7; /* Color de fondo claro */
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
 <h1>Ha ocurrido un error</h1>
@@ -17,12 +57,11 @@
     </ul>
 </div>
 
-<!-- Para mensajes de error generales -->
 <div th:if="${errorMessage != null}">
     <h3>Error general:</h3>
     <p th:text="${errorMessage}"></p>
 </div>
 
-<a href="/auth/sign">Volver al formulario</a>
+<a href="/auth">Volver al Login</a>
 </body>
 </html>

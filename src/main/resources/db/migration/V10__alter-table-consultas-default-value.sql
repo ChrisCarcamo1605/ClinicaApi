@@ -1,0 +1,1 @@
+ALTER TABLE consultas MODIFY COLUMN idusuario BIGINT DEFAULT 1;

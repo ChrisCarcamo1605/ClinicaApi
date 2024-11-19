@@ -73,7 +73,7 @@ public class TokenService {
 
     public Long obtenerClaim(String token, String claimKey) {
         if (token == null || claimKey == null || claimKey.isEmpty()) {
-            throw new IllegalArgumentException("Token o claimKey no pueden ser nulos o vacíos");
+            throw new IllegalArgumentException("Necesitas Iniciar Sesión");
         }
 
         try {

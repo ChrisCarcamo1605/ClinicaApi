@@ -1,0 +1,1 @@
+alter table veterinarios add column fecha DATE;

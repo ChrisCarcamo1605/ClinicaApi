@@ -1,10 +1,14 @@
-create table consultas
-(
-    id         bigint primary key not null auto_increment,
-    idveterinario   bigint             not null,
-    idmascota bigint             not null,
-    fecha      datetime           not null,
-
-    constraint fk_consultas_veterubario_id foreign key (idveterinario) references veterinarios (id),
-    constraint fk_consultas_mascotas_id foreign key (idmascota) references mascotas(id)
+CREATE TABLE Consultas (
+                          id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                          fecha DATE NOT NULL,
+                          hora TIME NOT NULL,
+                          veterinario_id BIGINT NOT NULL,
+                          mascota_id BIGINT NOT NULL,
+                          cliente_id BIGINT NOT NULL,
+                          activo VARCHAR(50) DEFAULT true,
+                          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                          updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                          FOREIGN KEY (veterinario_id) REFERENCES veterinarios(id),
+                          FOREIGN KEY (mascota_id) REFERENCES mascotas(id),
+                          FOREIGN KEY (cliente_id) REFERENCES usuarios(id)
 );

@@ -26,27 +26,27 @@ public class SecurityConfiguration {
     private SecurityFilter chain;
 
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authorizeHttpRequests()
-                .requestMatchers(HttpMethod.GET, "/auth", "/login").permitAll() // Permitir acceso a estas rutas
-                .requestMatchers(HttpMethod.POST,"/auth/login").permitAll() // Permitir POST en /login
-                .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .addFilterBefore(chain, UsernamePasswordAuthenticationFilter.class)
-                .build();
-    }
-
-
 //    @Bean
 //    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 //        return http.csrf().disable()
-//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).disable().build();
+//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//                .and()
+//                .authorizeHttpRequests()
+//                .requestMatchers(HttpMethod.GET, "/auth", "/login").permitAll() // Permitir acceso a estas rutas
+//                .requestMatchers(HttpMethod.POST,"/auth/login").permitAll() // Permitir POST en /login
+//                .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
+//                .anyRequest().authenticated()
+//                .and()
+//                .addFilterBefore(chain, UsernamePasswordAuthenticationFilter.class)
+//                .build();
 //    }
+
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        return http.csrf().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).disable().build();
+    }
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {

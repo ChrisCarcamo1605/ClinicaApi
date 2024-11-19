@@ -1,17 +1,15 @@
 package com.ApiREST.clinica.domain.consulta;
 
-import com.ApiREST.clinica.domain.mascota.Mascota;
-import com.ApiREST.clinica.domain.usuario.Usuario;
-import com.ApiREST.clinica.domain.veterinario.Veterinario;
-
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
-public record DatosDetallesConsulta(Long idConsulta, String nombreUsuario, LocalDateTime fecha, String mascota,
+public record DatosDetallesConsulta(Long idConsulta, String nombreUsuario, LocalDate fecha, LocalTime hora, String mascota,
                                     String veterinario) {
 
     public DatosDetallesConsulta(Consulta consulta) {
-        this(consulta.getId(),consulta.getIdUsuario().getNombre(),consulta.getFecha(),consulta.getIdMascota().getNombre(),
-                consulta.getIdVeterinario().getNombre());
+        this(consulta.getId(),consulta.getUsuario().getNombre(),consulta.getFecha(),consulta.getHora(),consulta.getMascota().getNombre(),
+                consulta.getVeterinario().getNombre());
 
     }
 

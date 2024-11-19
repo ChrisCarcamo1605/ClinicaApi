@@ -6,17 +6,17 @@ import com.ApiREST.clinica.domain.usuario.Usuario;
 import com.ApiREST.clinica.domain.veterinario.Veterinario;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 
 @Table(name = "Consultas")
 @Entity(name = "Consulta")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
@@ -25,40 +25,38 @@ public class Consulta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+    @JsonFormat(pattern = "dd/MM/yyyy")
     @JoinColumn(name = "fecha")
-    private LocalDateTime fecha;
+    private LocalDate fecha;
+
+    private LocalTime hora;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idusuario")
-    private Usuario idUsuario;
+    @JoinColumn(name = "cliente_id")
+    private Usuario usuario;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idmascota")
-    private Mascota idMascota;
+    @JoinColumn(name = "mascota_id")
+    private Mascota mascota;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idveterinario")
-    private Veterinario idVeterinario;
+    @JoinColumn(name = "veterinario_id")
+    private Veterinario veterinario;
     private Boolean activo;
-    private MotivoCancelamiento motivoCancelamiento;
 
-    public Consulta(Usuario usuario, Veterinario veterinario, LocalDateTime fecha,
+
+
+
+    public Consulta(Usuario usuario, Veterinario veterinario, LocalDate fecha, LocalTime hora,
                     Mascota mascota, boolean activo) {
-        this.idUsuario = usuario;
-        this.idVeterinario = veterinario;
-        this.idMascota = mascota;
+        this.usuario = usuario;
+        this.veterinario = veterinario;
+        this.mascota = mascota;
         this.fecha = fecha;
+        this.hora = hora;
         this.activo = activo;
     }
 
-
-    public void cancelarConsulta(MotivoCancelamiento dto) {
-
-        motivoCancelamiento = dto;
-        this.activo = false;
-
-    }
 
 
 }
