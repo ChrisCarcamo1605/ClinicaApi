@@ -27,11 +27,9 @@ public class ConsultaService {
 
     public Consulta crearConsulta(DatosCrearConsulta datosCrearConsulta) {
 
-
         if (datosCrearConsulta.paciente() == null) {
             throw new ConsultasException("El id no hace referencia a ningun usuario");
         }
-
 
         Consulta consulta = new Consulta();
         consulta.paciente = pacientesRepository.getReferenceById(datosCrearConsulta.paciente());
@@ -58,8 +56,6 @@ public class ConsultaService {
             } else {
                 medicoElegido = medicoRepository.elegirVeterinarioDisponible(fecha);
             }
-
-
             if (medicoElegido != null) {
                 medicoElegido.setFecha(fecha);
                 return medicoElegido;
@@ -67,8 +63,6 @@ public class ConsultaService {
                 throw new ConsultasException("No hay ningun medico disponible para esa fecha y hora");
             }
         } else {
-
-
             List<Consulta> medicosOcupados = consultaRepository.findAll();
             Medico med = medicoRepository.getReferenceById(medico);
             for (Consulta m : medicosOcupados) {
@@ -82,7 +76,14 @@ public class ConsultaService {
             return med;
 
         }
+    }
 
+    public void eliminarConsulta(Long consultaId) {
+        Consulta consulta = consultaRepository.getReferenceById(consultaId);
+        consulta.setActivo(false);
+
+        System.out.println("EL ID DE LA CONSULTA BORRADA ES: " + consulta.getId()+ " Y SU ESTADO ES: " + consulta.getActivo());
+        consultaRepository.save(consulta);
 
     }
 }

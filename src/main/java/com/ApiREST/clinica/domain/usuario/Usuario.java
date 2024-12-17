@@ -1,6 +1,7 @@
 package com.ApiREST.clinica.domain.usuario;
 
 
+import com.ApiREST.clinica.infra.security.DatosJWTtoken;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -27,27 +28,37 @@ public class Usuario implements UserDetails {
     private String username;
     private String password;
 
+
+    public Usuario(String username,String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_USUARIO"));
     }
 
     public boolean isCredentialsNonExpired() {
-        return UserDetails.super.isCredentialsNonExpired();
+        return true;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return UserDetails.super.isAccountNonExpired();
+        return true;
     }
+
     @Override
     public boolean isAccountNonLocked() {
-        return UserDetails.super.isAccountNonLocked();
+        return true;
     }
+
     @Override
     public boolean isEnabled() {
-        return UserDetails.super.isEnabled();
+        return true;
     }
+
     @Override
     public String getPassword() {
         return password;
@@ -58,10 +69,6 @@ public class Usuario implements UserDetails {
     public String getUsername() {
         return username;
     }
-
-
-
-
 
 
 

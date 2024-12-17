@@ -25,6 +25,7 @@ public class MedicoController {
 
     
   @PostMapping
+  @Transactional
   public ResponseEntity<DatosRespuestaMedico> RegistrarPaciente(@Valid @RequestBody DatosRegistromedico dtOmedico,
                                                                 UriComponentsBuilder uriBuilder){
 
@@ -41,6 +42,7 @@ public class MedicoController {
   }
 
   @GetMapping
+  @Transactional
         public ResponseEntity<Page<DatosListadoMedico>> ListarMedico(@PageableDefault(size = 3) Pageable pageable){
 
       return ResponseEntity.ok(medicoRepository.findByActivoTrue(pageable).map(DatosListadoMedico::new));

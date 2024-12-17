@@ -41,4 +41,6 @@ public class Consulta {
 
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     LocalDateTime fecha;
+
+    Boolean activo;
 }

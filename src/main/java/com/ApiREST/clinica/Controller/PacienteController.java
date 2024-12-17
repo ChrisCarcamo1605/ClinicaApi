@@ -27,6 +27,7 @@ public class PacienteController {
     PacientesRepository pacientesRepository;
 
     @PostMapping
+    @Transactional
     public ResponseEntity<DatosRespuestaPaciente> CrearCita(@Valid @RequestBody DatosRegistrarPaciente dtoPaciente,
                                                             UriComponentsBuilder uriBuilder) {
 
